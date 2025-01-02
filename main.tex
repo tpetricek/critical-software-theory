@@ -6,7 +6,9 @@
 \usepackage{amsmath}
 \usepackage{natbib}
 \usepackage{amssymb}
-\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[svgnames]{xcolor}
 \usepackage{graphicx}
 \usepackage{endnotes}
 \usepackage{sectsty}
@@ -19,20 +21,43 @@
 
 \usepackage{hyperref}
 \usepackage{hypcap}
-\usepackage{fancyvrb}
 
 \urlstyle{sf}
-
 \widowpenalties 2 10000 0
+\clubpenalties 2 10000 0
+
 \sectionfont{\large}
 \chaptertitlefont{\LARGE}
 \setcounter{secnumdepth}{0}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+\lstdefinelanguage{csxml}
+{
+  basicstyle=\ttfamily\footnotesize,
+  morestring=[b]",
+  moredelim=[s][\bfseries\color{Maroon}]{<}{\ },
+  moredelim=[s][\bfseries\color{Maroon}]{</}{>},
+  moredelim=[l][\bfseries\color{Maroon}]{/>},
+  moredelim=[l][\bfseries\color{Maroon}]{>},
+  morecomment=[s]{<?}{?>},
+  morecomment=[s]{<!--}{-->},
+  commentstyle=\color{DarkOliveGreen},
+  stringstyle=\color{blue},
+  identifierstyle=\color{red}
+}
 
 \begin{document}
-%\title{\Huge \textbf{Cultures of Programming}\\~\\
-%}
-%\author{Tomas Petricek}
-%\maketitle
+\title{\Huge \textbf{Critical Language for Software}\\~\\}
+\author{Tomas Petricek}
+\maketitle
 
 \include{chapters/introduction}
 
