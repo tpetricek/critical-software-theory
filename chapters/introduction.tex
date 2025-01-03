@@ -287,7 +287,7 @@ but mainly on the symbolic associations of the data structure.
 </CsamlFile>
 \end{lstlisting}
 \caption{The ``Hello world'' program written using the C\# Application Markup Language (CSAML),
-conceived by Charles Petzold in an April Fool's post on 1 April 2006.\endnote{\url{http://www.charlespetzold.com/etc/CSAML.html}}}
+conceived by Charles Petzold in an April Fool's post on 1 April 2006.}
 \label{fig:csaml}
 \end{figure}
 
@@ -304,58 +304,163 @@ various examples that are extremely lengthy and tedious. After a brief puzzlemen
 realise the joke. But the post makes them wonder about the verbosity and unnecessary
 overuse of the format at the time.
 
-~
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{chapters/fig/strip.jpg}\quad
+\caption{``Exodus, or the Voluntary Prisoners of Architecture: The Strip (Aerial Perspective)''
+by Rem Koolhaas, Elia Zenghelis, Madelon Vriesendorp and Zoe Zenghelis. The project
+imagines a walled city of ``new urban culture'' within the city of London.}
+% https://www.moma.org/collection/works/104692
+\label{fig:exodus}
+\end{figure}
 
-funny, architectural plans, esolangs
+The C\# Application Markup Language example hints at a number of themes that I will further
+explore later. It is perhaps blatantly funny, but it can still be seen as making a serious point.
+Moreover, the system that the post describes has never been actually implemented. The post
+is merely a (very basic) plan for a system. This does not, however, make it any less valuable
+as critical software. Many interesting pieces of critical architecture have also not been
+built, yet, they became important references. The Chicago Tribune tower by Adolf Loos is one
+such case, but even better example would be one of the many architectural projects that
+use the architectural language to intentionally propose structures that cannot be built.
+One such project is The Strip (Figure~\ref{fig:exodus}) by Rem Koolhaas. The project imagines
+an enclosed restricted city cutting through London. Although the work was inspired by the
+situation of West Berlin during the Cold War, the ideas of building a wall to separate cultures
+can be seen in new (and alarming) light today.
 
-FUTURE
-point out what we are doing without thinking - information hiding - expose data structures!
+In the subsequent chapters, we will see that hypothetical design proposals, fictional
+plans that cannot be built or impractical systems are a powerful way of making a point
+about software systems, just like they are a powerful way of making a point about architecture.
+The C\# Application Markup Language can be seen an example of a much broader class of
+esoteric programming languages, which are created jokingly, but can be often read as
+valuable critiques.\endnote{Cox, Speaking Code}
 
-~
+\begin{figure}
+\centering
+\includegraphics[width=0.85\textwidth]{chapters/fig/pompidou.jpg}\quad
+\caption{The Centre Pompidou ``inside-out'' building, which keeps all the infrastructure
+(using green for plumbing, yellow for electricity, blue for climate control, and red for
+circulation) on the outside to allow flexible and efficient use of the inside space.}
+% https://www.flickr.com/photos/jeanbaptistem/5448056975/in/photolist-HFZ9L-k5DdGP-9iqHwP-4vkacq-ydwXxD-9K2Jaz-k5LueV-k5Lh5K-HFYXU-ySUqb4-k5MyjB-ebvgdy-ydouoL-k5CwUF-9K2J1z-k5CV3R-2o6FcFX-m7tSj-aAbT1J-23edLxs-f9M6TH-k5CR2x-k5BJ4g-k5Cz5K-98pso6-4H9NcH-k5Q4fu-QMA3dr-4HdZ6y-aSKucT-4H9Nii-4HdYXd-6NgNR9-aSKC7P-74qk4S-4EvW6x-4fdBW2-9K2NKp-ebpE8F-z9o7SU-7yeN5y-byStES-a9DTqd-2qvg1Dn-ecAeV-nU1orA-bMM8zr-4EAaLQ-k5KdY6-4beX5c
+\label{fig:pompidou}
+\end{figure}
 
-~
+As I wrote earlier, I believe that we can take inspiration from the critical architectural
+language both to analyze existing software systems and projects, but also to come up with
+new ideas. Some of the references to a column that I discussed earlier make points that
+may well be applicable to software systems. For example, they may ironically highlight the fact
+that a column is used for its symbolic value, but not for its original purpose.
+They highlight the fact that it is no longer needed functionally, even if it is often used
+for rhetorical reasons.
 
-~
+We can imagine a range of similar critical points to be raised about the technical concept
+of data structures in the context of programming and software systems. If a column is no longer
+needed as a structural element, what may be the established essential aspect of data structures
+that is no longer needed?
 
-Oppositions p376
+One of the most established ideas associated with structuring application data is that of
+information hiding.\endnote{Parnas, On the criteria; also reflections in \url{https://link.springer.com/chapter/10.1007/978-3-642-59412-0_25}}
+The argument is that one should separate software systems into components that have a stable
+public interface and private implementation. If one identifies suitable stable public interface,
+it is possible to develop the components in isolation, change the implementation or replace
+individual components as needed. But information hiding has also been criticised.\endnote{GPII Nexus,
+my article on architecture, Convivial Design Heuristics for Software Systems} The problem is
+that predicting what part of the interface should be fixed and what can be hidden is often
+difficult, especially in the context of software systems whose function evolves and changes
+over time. Clark and Basman\endnote{GPII nexus} quote the example of MIDI SysEx messages that
+have, by convention, become a mechanism that exposes the state and can control the operation
+of musical devices. This enabled MIDI to become a powerful music control platform in a way
+that could not have been anticipated by the designers of the MIDI interface in the 1980s.
+Arguably, an even more prominent example would be the web platform, where much of the data
+structures that the web is built around (HTML, CSS) are also transparent.\endnote{But this
+has limits, see my talk.}
 
-"criticism embedded in practice" (Venturi) - not just code, but also docs
-Eclecticism - be funny (Jencsk) - engage with audience in a fun way?
-Morality / social relevance (Jencks) - c.f. thimbl
+So far, most ciritiques of information hiding have taken the form of text. To make the point
+through the critical language of software, we should design an exemplar piece of software
+or programming system that reverses the idea of information hiding. In other words, we
+should expose all the underlying data structures of the software in a way that is akin to how
+the Centre Pompidou (Figure~\ref{fig:pompidou}) exposes all the service infrastructure of the
+building.
 
-self-referential sign
--> thing ported from (native) environment to expensiove recreation in another? (to keep UX or something?)
+In such hypothetical system,\endnote{suggested by Clark and Basman} all the state of the system
+would be externalised in a way that allows anyone to see and modify it. To make the point,
+the system should do this to the extent possible. The accessible state should include all
+information about the data structures, as well as execution of the system. Depending on the
+chosen programming paradigm, this may include data of all objects, memory, stack, currently
+executing instructions etc. The information should also be exposed in a way that makes it
+available not just to the programmer,\endnote{this is already possible via reflection or in
+image-based systems} but also to the end-user. The system would have to handle the fact that
+its state may be modified in inconsistent ways and could either recover as best as possible
+(akin to how web browsers recover when encountering invalid HTML) or break (likely making an
+interesting point about the fragility of software systems).\endnote{c.f. antifragile}
+The color coding used in the Centre Pompidou offers another interesting idea. If we exposed
+all data structures of a software system using similar color coding (for different aspects
+of the system), the system would increase public awareness about what modern software consists
+of. Thus the project can also fulfil an educational function.
 
-serious artists engage with history, choosing what to keep and what to drop (The Hub)
-rebuilding old things anew?
--> reconstructions
+There is, of course, a practical issue of the context in which such project can become
+reality. It is entirely possible to develop a critical software system only in the form of
+specification or description, much like Charles Petzold's C\# Application Markup Language.
+However, to explore the consequences of the design---and see how a system can be used in
+the absence of information hiding---an actual non-trivial working implementation is needed.
+I will return to this problem later, but architecture has a variety of options. Many
+architects explore their theories for houses built for their own use or their
+family.\endnote{Ghery's residence, Vanna Venturi house} Similarly, programmers and computer
+scientists often have their own projects to experiment on.
 
-Class as a column?
-basic structure, associated with maintainability...
-(evolved from closures and back)
-
-god object / class? - chicago tribune
-
-types and data structures - in cases where they are not enforced (nosql) - mere nice annotations
-- data structure characerizes software - Craft, p96
-=> vocabulary for what you can do - disrupt? nosql databases (allow anything) -
-c.f. craft p98 (disrupt the gap in definining vs. understanding SW structures?)
-
-point out things that we're doing without thinking (information hiding)
--> expose structure
-
-Rhetorical element? (Venturi)
-
-highlight contradictions - plenty in software
-hard to read architecture is valid if it reflects contradictions (Venturi)
-
-exhibitions / stage sets
--> format for communication
--> heterotopias (Jencks)
+Architecture also often speaks through
+non-building objects such as stage sets, public monuments, pavilons and follies or exhibitions.
+Those may not (yet) have obvious equivalents in the world of software and the task of developing
+critical language of software may involve finding those. Last but not least, new architecture
+also sometimes emerges in isolated places within a large city, called heterotopias in reference
+to Michel Foucault.\endnote{Jencks, 119} Such isolated spaces, such as prisons, ghettos,
+amusement parks, or leftover spaces known as terrain vague.\endnote{vagni teren}
+I believe we can similarly find a range of atypical pieces of software, which are often deemed
+as unimportant, but provide space for experimentation. Ad-hoc scripts, demos, spreadsheets,
+and programs created at hackathons or coding competitions are only a few examples of hterotopias
+in the world of software.
 
 
-Deconstruction
-- use some methodological way rigorously to show where it leads
+
+
+% Oppositions p376
+%
+% "criticism embedded in practice" (Venturi) - not just code, but also docs
+% Eclecticism - be funny (Jencsk) - engage with audience in a fun way?
+% Morality / social relevance (Jencks) - c.f. thimbl
+%
+% self-referential sign
+% -> thing ported from (native) environment to expensiove recreation in another? (to keep UX or something?)
+%
+% serious artists engage with history, choosing what to keep and what to drop (The Hub)
+% rebuilding old things anew?
+% -> reconstructions
+%
+% Class as a column?
+% basic structure, associated with maintainability...
+% (evolved from closures and back)
+%
+% god object / class? - chicago tribune
+%
+% types and data structures - in cases where they are not enforced (nosql) - mere nice annotations
+% - data structure characerizes software - Craft, p96
+% => vocabulary for what you can do - disrupt? nosql databases (allow anything) -
+% c.f. craft p98 (disrupt the gap in definining vs. understanding SW structures?)
+%
+% point out things that we're doing without thinking (information hiding)
+% -> expose structure
+%
+% Rhetorical element? (Venturi)
+%
+% highlight contradictions - plenty in software
+% hard to read architecture is valid if it reflects contradictions (Venturi)
+%
+% exhibitions / stage sets
+% -> format for communication
+% -> heterotopias (Jencks)
+%
+%
+% Deconstruction
+% - use some methodological way rigorously to show where it leads
 
 \section{Eisenmann}
 
@@ -367,6 +472,14 @@ https://parametric-architecture.com/deconstructing-deconstruction-the-architectu
 https://arahovsepyan.com/eisenmanalexander
 
 abstract entity to support any kind of activity (Aureli)
+
+interpreting
+pure form
+distorted
+
+Eisenman - Wexner center - grid becomes external
+
+
 
 \section{Achieving fit?}
 
