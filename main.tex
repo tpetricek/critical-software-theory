@@ -33,14 +33,28 @@
 \definecolor{darkblue}{rgb}{0.0,0.0,0.6}
 \definecolor{cyan}{rgb}{0.0,0.6,0.6}
 
+\lstloadlanguages{C}
 \lstset{
   basicstyle=\ttfamily,
   columns=fullflexible,
   showstringspaces=false,
   commentstyle=\color{gray}\upshape
 }
-\lstdefinelanguage{csxml}
-{
+\lstdefinelanguage{csharp}{
+  basicstyle=\ttfamily\footnotesize,
+  commentstyle=\color{green},
+  morecomment=[l]{//}, %use comment-line-style!
+  morecomment=[s]{/*}{*/}, %for multiline comments
+  morestring=[b]",
+  commentstyle=\color{DarkOliveGreen},
+  stringstyle=\color{blue},
+  identifierstyle=\color{black},
+  keywords=[1]{static,class,private,delegate,void,int,public,get,var},
+  keywordstyle=[1]\color{blue},
+  keywords=[2]{Func,YCombinator,Program,RecursiveFunc,Console},
+  keywordstyle=[2]\color{violet}
+}
+\lstdefinelanguage{csxml}{
   basicstyle=\ttfamily\footnotesize,
   morestring=[b]",
   moredelim=[s][\bfseries\color{Maroon}]{<}{\ },
