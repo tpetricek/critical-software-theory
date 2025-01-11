@@ -637,7 +637,7 @@ made to provide the image of a two-dimensional drawing from one particular angle
 Architects who probe formal structures of the architectural language may do so to better understand
 the language, uncover assumptions that we accept and rarely question and explore consequences of
 changing or manipulating the language. As in the previous section, this is often done using the
-architectural language itself. Eisenman's numbered series of houses, Ghery's residences and Parc
+architectural language itself. Eisenman's numbered series of houses, Gehry's residences and Parc
 de la Villette were all planned to be built and a number of them still stand.\endnote{And even houses
 built to question the humanist focus of architecture sometimes found their satisfied owner.
 \url{https://www.nytimes.com/2002/10/10/garden/house-proud-a-white-elephant-reincarnated.html}}
@@ -648,14 +648,14 @@ software.
 
 In some cases, architects use other formats too. Eisenman's doctoral work was a text presenting
 a formal analysis of existing buildings. The deconstructivist practice can be used to probe the
-process of architecture as well, as well as other artifacts it involves. For example,
-another way in which Eisenman criticises humanist ideology of architecture is the
+process of architecture, as well as other artifacts it involves. For example,
+Eisenman also criticises humanist ideology of architecture through the
 axonometric model of the House~X (Figure~\ref{fig:axonometric}), which makes
 ``the `normal' image appear to be an anomaly.''\endnote{Oppositions, 219}
 Similarly, computer scientists and programmers should include a broader range of materials in
-their notion of critical language of software, including formal definitions or software
-specifications. Those can, no doubt, be constructed in a similarly illuminating distorted
-manner as Eisenman's axonometric model.
+their notion of critical language of software, including formal definitions, software
+specifications and demonstrations. Those can, no doubt, be constructed in a similarly
+illuminating distorted manner as Eisenman's axonometric model.
 
 The analytical way of looking at basic structures of the language of the subject matter is something
 that computer scientists are well familiar with. It has been done at multiple levels. On one
@@ -663,11 +663,12 @@ level, formal models of computations such as Turing machines and the lambda calc
 used to describe the basic structure of computation. Like the grammar that reduces architecture
 to relationships between basic shapes, formal models of computation reduce program execution to
 a minimal set of operations. That said, there is a difference between computing and architecture
-here in that formal models of computation originate in logic and have been conceived to study
-computability properties, rather than actual program execution.
+in that formal models of computation originate in logic and have been conceived to study
+computability properties, rather than originating in the analysis of existing programs.
 
 \begin{figure}
 \centering
+\vspace{-1em}
 \includegraphics[width=0.7\textwidth,trim=0cm 13.5cm 12.5cm 0cm,clip]{chapters/fig/strategy.pdf}
 \caption{A class diagram illustrating the relationships between classes and interfaces in the
 case of the Strategy design pattern. The Context class uses a Strategy to do some work and
@@ -682,24 +683,25 @@ and catalogues some 24 design patterns, which appear repeatedly in past software
 patterns are common structures defined by relationships between classes and interfaces in an
 object-oriented systems and each design pattern captures one particular structure
 of relationships (Figure~\ref{fig:strategy}). Although the Gang of Four book is a collection of
-a larger number of patterns whereas Formal Basis of Modern Architecture is more akin to a formal
-grammar, they are both similar in that they analyze existing systems (software or modern
+a larger number of patterns whereas Formal Basis of Modern Architecture is inspired by the structure
+of formal grammars, they are both similar in that they analyze existing systems (software or modern
 architecture) to identify and describe their formal underlying structure.
 
 Linking software patterns to Eisenman's work is ironic in that Alexander and Eisenman saw
-their approaches as being in direct opposition,\endnote{debate} but I believe this may be
-revealing. Whereas Alexander focused on creating ``living structures'', Eisenman is looking
+their approaches as being in direct opposition,\endnote{debate} but I believe drawing the connection
+may be revealing. Whereas Alexander focused on creating ``living structures'', Eisenman is looking
 for ``formal structures''. The Gang of Four design patterns are sometimes criticised for lacking
 this essential ``living'' aspect emphasized by Alexander. The notions that Alexander has been
 looking for are more likely to be found in the work of Richard Gabriel\endnote{Patterns of Software}
-than in the widely used Gang of Four patterns.
+than in the widely used Gang of Four patterns. Despite using the name and structure of Alexander's
+design patterns, software patterns may well be more akin to Eisenman's formal analysis.
 
-On another level, there have been attempts to analyze and describe how software is made of
-high-level concepts, which are rooted in the specific domain that the software is designed
+On another level, there have been attempts to analyze and describe how software systems are made of
+high-level concepts, which are rooted in the specific domain that the systems are designed
 for. In a book titled ``The Essence of Soware'',\endnote{cite} Daniel Jackson views software
 as collection of interacting concepts. As an example, concepts involved in a social media
 platform like Facebook include that of a post, comment, like and a friend. The exact structure
-and interactions between such concepts then determine how the system behaves, how it can be
+and interactions between such concepts then determines how the system behaves, how it can be
 used and also its social implications.\endnote{Twitter and tear gas}
 
 All of those formal structures in software---models of computation, design patterns and
@@ -708,50 +710,28 @@ as well as help programmers in creating new things. You can use models of comput
 basis for a new language, patterns to design an extensible software system or concepts to
 create an intelligible application.
 
-An important lesson that post-modern architecture teaches us is that we can use such formal
-structures also to reveal the insufficiencies in our established practices, question hidden
-assumptions or reveal the contradictions often present in software desing and development.
-To paraphrase Eisenman, (admit and) show that everything is not all right. The illustrations
-shown in Figure~\ref{fig:grammar} and discussed in the previous section suggest some ways
-in which this can be done. We can use formal structures in a more or less distorted way,
-follow a methodology in an excessively rigorous way, or start with atypical arrangements
+An important lesson that post-modern architecture teaches us is that we can use such formal structures
+in another way. We can use them to reveal the insufficiencies of our established practices, question
+hidden assumptions and reveal the contradictions often present in software desing and development.
+To paraphrase Eisenman,\endnote{debate} (admit and) show that everything is not all right. The
+discussion in the previous section, alongside with the illustrations shown in Figure~\ref{fig:grammar},
+suggest some ways in which this can be done. We can use formal structures in a more or less distorted way,
+follow a methodology in an excessively rigorous way, or start with an atypical arrangement
 of the basic structures.
 
 I doubt there are many designers of programming languages who have studied work of post-modern
 and deconstructivist architects and then decided to design a programming language according to
-the same principles. But if we look at some existing programming languages, we can imagine what
+the same principles. But looking at some existing programming languages, we can imagine what
 this might look like. If we decide to use the lambda calculus as our primary model of computation,
 there are multiple ways in which this formal structure can be turned into a programming language.
-If we want to take the core structures of the formal model (variables, lambda functions and
-application) and build a programming language around them, we have to bridge a large gap.
-A realistic programming language will need much more than basic three primitives. Languages like
+Taking the core structures of the formal model (variables, lambda functions and application) and
+building a programming language around them involves bridging a large gap.
+A realistic programming language will need much more than the three basic primitives. Languages like
 Haskell resolve any design concerns that arise from this gap using a reasonable programmer's
 intuition---they aim at building a practically usable system.
 
-It is certainly also possible to use the same formal model of computation and highlight the fact
-that what remains to be added in order to design a practically usable programming language is by
-no means obvious. One illustration of this is the esoteric programming language
-Unlambda\endnote{some kind of citation} created by David Madore. The language is based on a
-combinatory logic that is related to the lambda calculus and expresses computation in terms
-of three primitive combinators written as S, K and I. Unlambda turns the formal model into a
-programming language that makes it possible to write and execute programs, such as the following
-Fibonacci number calculator:\endnote{\url{http://www.madore.org/~david/programs/unlambda/}}
-
-\begin{lstlisting}
-```s``s``sii`ki
-  `k.*``s``s`ks
- ``s`k`s`ks``s``s`ks``s`k`s`kr``s`k`sikk
-  `k``s`ksk
-\end{lstlisting}
-
-Unlambda supports a number of further functional programming concepts including continuations
-and lazy evaluation. The \texttt{.*} construct prints the \texttt{*} character and returns it.
-Unlambda is an ironical demonstration, not intended for practical use. Yet, it brings to light
-a fact that is not otherwise easy to see. If we contrast Haskell and Unlambda,
-we can see how much of the design of the Haskell language is not determined by its core
-formal computational model---an interesting lesson about programming language design!
-
 \begin{figure}
+\vspace{-1em}
 \begin{lstlisting}[language=csharp]
 static class YCombinator<T, TResult> {
   private delegate Func<T, TResult> RecursiveFunc(RecursiveFunc r);
@@ -768,88 +748,198 @@ static class Program {
   }
 }
 \end{lstlisting}
+\vspace{-0.5em}
 \caption{Program that calculates factorial and Fibonacci numbers, unnecessarily overusing
 the core concepts of the lambda calculus (fixed point operator) rather than relying on
 standard capabilities of the C\# programming language.}
 \label{fig:ycombinator}
+\vspace{-0.5em}
 \end{figure}
 
-Last, but not least, we can also explore the case that integrate primitive structures from
-multiple formal models of computation. For example, many programming languages that are based
+It is equally possible to use the same formal model of computation and highlight the gap---what
+remains to be added in order to design a practically usable programming language is by
+no means obvious. One illustration of this is the esoteric programming language
+Unlambda\endnote{some kind of citation} created by David Madore. The language is based on a
+combinatory logic that is related to the lambda calculus and expresses computation in terms
+of three primitive combinators written as S, K and I. Unlambda turns the formal model into a
+programming language that makes it possible to write and execute programs, such as the following
+Fibonacci number calculator:\endnote{\url{http://www.madore.org/~david/programs/unlambda/}}
+
+\begin{lstlisting}
+```s``s``sii`ki
+  `k.*``s``s`ks
+ ``s`k`s`ks``s``s`ks``s`k`s`kr``s`k`sikk
+  `k``s`ksk
+\end{lstlisting}
+
+Unlambda supports a number of further functional programming concepts including continuations
+and lazy evaluation, and the \texttt{.*} construct prints the \texttt{*} character and returns it.
+Unlambda makes no attempt to be practically useful. As noted by the author ``[w]riting Unlambda
+programs isn't really as hard as it might seem; however, reading Unlambda programs is practically
+impossible.''\endnote{\url{http://www.madore.org/~david/programs/unlambda/}}
+Unlambda is an ironical demonstration that brings to light a fact that is not otherwise easy
+to see. Contrasting Haskell and Unlambda shows how little of the design of the Haskell language is
+really determined by its core formal computational model---an interesting lesson about programming
+language design!
+
+
+Last, but not least, we can also explore the case of integrating primitive structures from multiple
+formal models of computation. For example, many contemporary programming languages that are based
 on different principles (such as imperative, object-oriented languages) now support the
 key concept from the lambda calculus, that is a lambda function. (Incidentally, this replaces
 the Strategy design pattern illustrated in Figure~\ref{fig:strategy}.) Such combination of
-different formal structures poses a problem both for language designers and language users.
+different formal structures poses a problem both for the language designers and the language users.
 The designers have to resolve the contradictions that arise from the integration of different
-formal structures. (The complexity of the capture clause in C++ lambdas would be one example
-of this difficulty.\endnote{\url{https://learn.microsoft.com/en-us/cpp/cpp/lambda-expressions-in-cpp}})
+formal structures. The complexity of the capture clause in C++ lambdas would be one example
+of this difficulty.\endnote{\url{https://learn.microsoft.com/en-us/cpp/cpp/lambda-expressions-in-cpp}}
 At the same time, the users of the language now have to carefuly choose between the multiple
-available formal structures. Using ironical example, such as the two recursive
-computations in C\# shown in Figure~\ref{fig:ycombinator}, we can point out that such choice
-is not always easy. Somewhat like Ghery's residential projects, the example ``smashes'' together
-parts of the programming language, making an aesthetic virtue of ``rough, crumbled'' lines of code.
+available formal structures. To point out that this is not alway easy, we can use an ironical
+example such as the two recursive computations shown in Figure~\ref{fig:ycombinator}.\endnote{A Z combinator, from
+\url{https://rosettacode.org/wiki/Y_combinator}} A bit like Gehry's residential projects, the
+example ``smashes'' together parts of the programming language, making an aesthetic virtue of
+``rough, crumbled'' lines of code. In both architecture and software, this distortion of the
+simple structure is also associated with higher maintenance costs.\endnote{For Gehry, see
+\url{https://www.nytimes.com/2007/11/07/us/07mit.html}}
+
+\begin{figure}
+\centering
+\vspace{-1em}
+\includegraphics[width=0.65\textwidth]{chapters/fig/stata.jpg}
+\caption{Stata Center designed by Frank Gehry for the MIT.}
+\label{fig:stata}
+% https://en.wikipedia.org/wiki/File:MIT_Strata_Center.jpg
+\vspace{-0.5em}
+\end{figure}
+
+One caveat in my comparison between architecture and structures that appear in programming is
+that source code and programming languages typically remain hidden from sight. In contrast, the
+distorted formal structurs of post-modern architects are visible to their inhabitants. In case of
+public buildings, the structures can send a message about the institution it hosts. For example,
+the appearance of the MIT Stata Center (Figure~\ref{fig:stata}) ``is a metaphor for the freedom,
+daring, and creativity of the research that's supposed to occur inside it.''\endnote{Web
+archive of \url{http://www.boston.com/ae/theater_arts/articles/2004/04/25/dizzying_heights/}}
+A less charitable reading of the building would be that it is a defensible use of the
+desires associated with the Late Capitalism to ``make it an interesting test of constructional
+capability.''\endnote{Jencks, p172 about Fuksas, New Milan Trade Fair} Either way, the
+visibility of the structure justifies its existence and its greater maintenance costs.
+
+Here, the analogy between software and deconstructivist architecture raises another interesting
+question. Should the inner structures of programs remain hidden from their users, or should
+we strive to make the inner structures visible and comprehensible?
+Like architecture, software design is often the result of contradictory forces that
+arise from the user needs, physical or virtual environment and financial interests.
+An inner structure reflects those forces and, if it was transparent to the user or inhabitant
+of software, they would gain greater understanding of the software. (Perhaps, it would not
+take a massive security vulnerability like the 2014 Heartbleed bug to see that the core
+infrastructure of modern internet is critically underfunded.)\endnote{See
+\url{http://www.nytimes.com/2014/04/19/technology/heartbleed-highlights-a-contradiction-in-the-web.html}}
+The fact that greater transparency would then, incidentally, also allow software designers to
+speak through the structure of their software would be an additional benefit of the greater
+transparency. I will return to this topic and how such transparency could be achieved
+later in this chapter.
+
+\begin{figure}
+\centering
+\vspace{-1em}
+\includegraphics[width=0.65\textwidth]{chapters/fig/inyerface.png}
+\caption{User Inyerface is a ``worst practice UI experiment'' and combines all imaginable
+poor practices to make correct completion of a form challenging such as counter-intuitivie
+highlighting of buttons, use of flags to select a country, placeholder text that has to be
+explicitly deleted, duplication of information (age and date of birth, or inconvenient user
+interface elements (age slider).}
+% own
+\label{fig:inyerface}
+\end{figure}
+
+High-level concepts, such as those identified by Daniel Jackson can be more visible and
+understandable to software users, so they have a greater potential as devices for communication.
+Seeing the concepts behind software still systems requires careful attention. As Jackson points
+out, ``to learn about concepts, we need to see what happens when they go wrong.''\endnote{Jackson, p15}
+Similarly, the structures behind architecture become visible when they are intentionally or accidentally
+distorted. Some post-modern architects use this fact to their leverage---using such
+distortions of the architectural language to speak to their audience.
+
+An engaging and widely relatable project that distorts familiar concepts is the User
+Inyerface challenge (Figure~\ref{fig:inyerface}). The web page shows a familiarly looking
+user registration form, but it employs all possible poor design practices to make the completion
+of the form as hard as possible. The web page is composed from standard underlying concepts,
+but each of those concepts is mapped to a user element that is unsuitable in some way.
+In some ways, the example is similar to the case of the esoteric programming language Unlambda
+that I discussed earlier. Like Unlambda, the User Inyerface web page is based on reasonable
+underlying structures (combinatory logic or concepts of a registration form), but it shows that
+turning the reasonable underlying structure into an actual programming language or an interface
+requires resolving a number of remaining design problems.
+
+\begin{figure}
+\centering
+\vspace{-1em}
+\includegraphics[width=0.85\textwidth]{chapters/fig/foquet.jpg}
+\caption{Hotel Fouquet designed by Edouard Fran\c{c}ois, located in Paris near the Champs Elys\'ees.}
+\label{fig:hotel}
+% https://praha.camp/magazin/detail/za-architektonickymi-skvosty-parize-s-adamem-gebrianem
+\end{figure}
+
+A variety of interesting buildings and software systems emerge from the need or desire to combine
+multiple structures in a single resulting form. One example was the plan for the garden in Parc
+de la Villete by Eisenman and Derrida which overlaid a number of different structures on the single
+site. Similarly, I discussed how some conterporary programming languages combine multiple models
+of computation earlier in this section, as well as how the interaction between those leads to
+contradictions. We can see the same pattern with high-level concepts of software.
+
+Before talking about software, I want to look at one more architectural example.
+The Hotel Fouquet (Figure~\ref{fig:hotel}) was built in a quarter of Paris with
+strict regulations that require architects to follow the structure of historical
+buildings in the area. The concrete facade mimics the style of a previous building in
+fine details, but the facade covers a building with a different internal structure.
+The internal structure is visible through the windows and doors that stand out from the facade.
+The Hotel Foquet is an eye-catching example of a building that combines two formal structures.
+On the outside, it follows the style of buildings of the Haussmann's 19th century renovation
+plan for Paris, as required by the regulations. On the inside, it is a modern hotel building with
+floors and rooms arranged according to an internal logic. The windows and doors are the only
+points of interaction between the two structures.
+
+If we pay attention, we can see the same interaction between multiple structures in
+one of the first examples that Daniel Jackson uses in his conceptual analysis of software.
+He looks at a sample screenshot of a Facebook page and notes that ``three concepts are evident:
+post (represented by the message and the associated image), like (represented by the emoticons
+at the bottom left), and comment (represented by the link on the bottom right).''\endnote{p30}
+Looking at a screenshot is a way of uncovering concepts from the perspective of the user---the
+facade of the hotel. But our conceptual analysis can equally focus on the inside of the
+hotel. That is, the business model of Facebook, which has been described using the term
+surveillance capitalism.\endnote{zuboff} As an alternative to screenshot, we can look at the claim
+from the litigation by human rights campaigner Tanya O'Carroll who sued Meta (owner of Facebook)
+to respect her GDPR ``right to object'' to being profiled.\endnote{See
+\url{https://www.awo.agency/blog/tanya-o-carroll-v-meta-landmark-case-to-stop-facebook-spying-on-us/},
+claim \url{https://www.awo.agency/files/ocarroll-v-meta-bundle.pdf}}
+The concepts that are evident in the claim include direct marketing material (advertisements,
+promoted content), personal data (user's age, gender, location, content interactions),
+categories (ad interests, ad topics, your topics). When browsing Facebook, we only see the front
+facade. The promoted posts and advertisements we see are hints of a parallel conceptual
+structure of the system that we can only see if we look harder. The existence of those structures
+and the need to look for them and expose them is another useful lesson that the world of software
+can take from critical post-modern architecture.
 
 
-~
+\begin{figure}
+\includegraphics[height=12em]{chapters/fig/fit-jihocesky.jpg}\quad
+\includegraphics[height=12em]{chapters/fig/fit-strip.jpg}\\[1em]
+\includegraphics[height=8.5em]{chapters/fig/fit-tugendhat.jpg}\quad
+\includegraphics[height=8.5em]{chapters/fig/fit-sala-house.jpg}\quad
+\includegraphics[height=8.5em]{chapters/fig/fit-findouthous.jpg}
+% strip - denise scott brown: https://www.readingdesign.org/denise-scott-brown-photos/9
+% sala - https://en.wikipedia.org/wiki/File:Sala_House_Parents_Realm_1.jpg
+% tugendhat - https://www.flickr.com/photos/giverny_com/36877628023/in/photolist-YbKu1P-4J3HtF-4J7XKh-4J3Hxr-2q9AVLT-2k8kJjf-3o6UC1-2mEffFe-ir6bD2-QpB1Mn-jeGrdX-irNkiN-irNP4z-irMjuz-irNjhQ-NevRiJ-2k8goCA-irMMKM-irMQwP-2k8kbWe-2k8kc6Y-2k8kc4J-nVVogH-2k8kcgn-2k8kJaT-2k8kJdt-jeHo7p-2k8kJi8-aeVAve-2k8kJbV-2k8gp9q-anTQqR-irMB3o-irNwHG-Yz6G6D-irMiQZ-2k8kcnE-2k8kJ2G-2oQs2xZ-yuu9bF-jeJuFN-2mcTMdE-5g8KH-nJEuNq-2q9HMf8-5g8Kk-yc9oXq-2mifXPW-2njVnzt-2njVkiz/
+\caption{things}
+\label{fig:fit}
+\end{figure}
 
-~
-
-CAVEAT - only programmers see this
-
-two more at conceptual level - impossible UX, ads in facebook
-
-%
-
-~
-
-~
-
-
-* interpreting
-  ??
-    C\# lambdas - maybe distorted
-* pure form
-    lambda calculus
-* distorted
-    impossible UX
-=> show that everything is not OK
-* follow mechanical process (ad absurdum?)
-
-Jackson-like concept analysis - but applied to real structure, not visible
-(ad, viewer, personal data)
-
-Also SW parcs and memorials to try formal ideas
-Jackson concepts as another basis
-Not just calculi
-
-
-
-
-https://parametric-architecture.com/deconstructing-deconstruction-the-architectural-philosophy-of-peter-eisenman/
-
-https://arahovsepyan.com/eisenmanalexander
-
-eisenmann - formal order to render architecture transparent
-
-abstract entity to support any kind of activity (Aureli)
-
-
-Eisenman - Wexner center - grid becomes external
-
-C\# lambdas - like the Gehry residence
--> architecture offers langauge for talking about such design ideas
-
-multiple coding see
-https://stars.library.ucf.edu/elo2020/asynchronous/proceedingspapers/17/
-
-\section{Achieving fit?}
+\section{Achieving Fit}
 
 ways of criticism (Oppositions, p372)
 
 Modernism, Vegas, Alexander
 eisenmann - fin d'out h ou s - fit must become effect
 
-grammar of architecture is useful for conceiving project but it is a fiction - Eisenman (Petit, 149)
 
 \newpage
 
@@ -857,6 +947,7 @@ HOW CAN IT BE DONE
 
 but we have to make things more visible - if it is speaking only to programmers reading code,
 it is not much
+achieving greater transparency - smalltalk, web, open source (c.f. grant)
 
 manipulate language / formal codes - oppositions p376
 
@@ -897,7 +988,31 @@ but SW is more than code - also docs etc. - take broader perspective!
 monuments / demoscene / esolangs / talks / hackathons
 (building as ritualistic activity to encourage social bonds - Aureli)
 
+
+
+
+CONCLUSION: PM liberated communicative potential (Jencks) - how to do this for PL?
+
+
 \section{Leftovers}
+
+grammar of architecture is useful for conceiving project but it is a fiction - Eisenman (Petit, 149)
+
+follow mechanical process (ad absurdum?)
+
+Also SW parcs and memorials to try formal ideas
+
+https://parametric-architecture.com/deconstructing-deconstruction-the-architectural-philosophy-of-peter-eisenman/
+
+eisenmann - formal order to render architecture transparent
+
+abstract entity to support any kind of activity (Aureli)
+
+Eisenman - Wexner center - grid becomes external
+
+multiple coding see
+https://stars.library.ucf.edu/elo2020/asynchronous/proceedingspapers/17/
+
 
 POP/LAS VEGAS
 Sources for new socially relevant language (Oppositions 329)
