@@ -1,4 +1,4 @@
-\chapter{Introduction}
+\chapter*{Critical Language for Software}
 
 The name of the architect Christopher Alexander is perhaps better known in programming
 circles than among architects, so he makes for the perfect opening of a text that aims
@@ -45,7 +45,7 @@ for thinking about the problem. In other words, regardless of whether we have th
 what is built, we do not know how to effectively critically question what is built, how to imagine
 alternatives, and how to ironically poke at the undesirable characteristics of what is being built.
 
-\section{Critical Language for Software}
+%\section{Critical Language for Software}
 This text is an attempt to develop such critical language of software. To do so, I will draw on
 a number of architects and architectural critics. Their work provides an inspiration for
 what, I believe, is needed for software. Some of those critiques are in the form of written text,
@@ -88,9 +88,10 @@ highlight some of the aspects of the critical language developed by architects t
 to create for software. I will then return to methodological problem of how such language
 can be structured.
 
-\newpage
+%\newpage
 
-\begin{figure}
+\begin{figure}[t]
+\vspace{-1em}
 \includegraphics[height=9.85em]{chapters/fig/columns-archives.jpg}\quad
 \includegraphics[height=9.85em]{chapters/fig/columns-savoye.jpg}\quad\\[1em]
 \includegraphics[height=12em]{chapters/fig/columns-greek.jpg}\quad
@@ -105,6 +106,7 @@ Tower Competition, (5) Hans Hollein's ironical Facade of Morphed Columns, at the
 Architecture Biennale, and (6) Robert Venturi's ``ironic'' column from the 1977 addition to the
 Allen Memorial Art Museum.}
 \label{fig:columns}
+\vspace{-1em}
 \end{figure}
 
 \section{The Ironical Column}
@@ -114,6 +116,8 @@ shows several uses of columns, starting from the ancient Parthenon built in Athe
 BC (bottom left) followed by four examples that include a variety of references to the classical
 column.\endnote{Idea from Oppositions p377, See also Korman ``The Architecture of the Facade'' -
 for more on columns}
+
+\newpage
 
 Neoclassical architecture, which gradually grew in prominence in the late 18th century, looks
 back to the Classical past. It sees it as a source of pure geometric order with ideal proportions
@@ -306,7 +310,7 @@ overuse of the format at the time.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{chapters/fig/strip.jpg}\quad
+\includegraphics[width=0.75\textwidth]{chapters/fig/strip.jpg}\quad
 \caption{``Exodus, or the Voluntary Prisoners of Architecture: The Strip (Aerial Perspective)''
 by Rem Koolhaas, Elia Zenghelis, Madelon Vriesendorp and Zoe Zenghelis. The project
 imagines a walled city of ``new urban culture'' within the city of London.}
@@ -351,7 +355,6 @@ may well be applicable to software systems. For example, they may ironically hig
 that a column is used for its symbolic value, but not for its original purpose.
 They highlight the fact that it is no longer needed functionally, even if it is often used
 for rhetorical reasons.
-
 We can imagine a range of similar critical points to be raised about the technical concept
 of data structures in the context of programming and software systems. If a column is no longer
 needed as a structural element, what may be the established essential aspect of data structures
@@ -459,9 +462,7 @@ in the world of software.
 % Deconstruction
 % - use some methodological way rigorously to show where it leads
 
-\newpage
-
-\begin{figure}
+\begin{figure}[t]
 \vspace{-1em}
 \includegraphics[height=8.5em]{chapters/fig/grammar-fascio.jpg}\quad
 \raisebox{1.2em}{\boxed{\includegraphics[height=7em]{chapters/fig/grammar-formal.png}}}\\[1em]
@@ -668,7 +669,6 @@ computability properties, rather than originating in the analysis of existing pr
 
 \begin{figure}
 \centering
-\vspace{-1em}
 \includegraphics[width=0.7\textwidth,trim=0cm 13.5cm 12.5cm 0cm,clip]{chapters/fig/strategy.pdf}
 \caption{A class diagram illustrating the relationships between classes and interfaces in the
 case of the Strategy design pattern. The Context class uses a Strategy to do some work and
@@ -719,17 +719,6 @@ suggest some ways in which this can be done. We can use formal structures in a m
 follow a methodology in an excessively rigorous way, or start with an atypical arrangement
 of the basic structures.
 
-I doubt there are many designers of programming languages who have studied work of post-modern
-and deconstructivist architects and then decided to design a programming language according to
-the same principles. But looking at some existing programming languages, we can imagine what
-this might look like. If we decide to use the lambda calculus as our primary model of computation,
-there are multiple ways in which this formal structure can be turned into a programming language.
-Taking the core structures of the formal model (variables, lambda functions and application) and
-building a programming language around them involves bridging a large gap.
-A realistic programming language will need much more than the three basic primitives. Languages like
-Haskell resolve any design concerns that arise from this gap using a reasonable programmer's
-intuition---they aim at building a practically usable system.
-
 \begin{figure}
 \vspace{-1em}
 \begin{lstlisting}[language=csharp]
@@ -755,6 +744,18 @@ standard capabilities of the C\# programming language.}
 \label{fig:ycombinator}
 \vspace{-0.5em}
 \end{figure}
+
+
+I doubt there are many designers of programming languages who have studied work of post-modern
+and deconstructivist architects and then decided to design a programming language according to
+the same principles. But looking at some existing programming languages, we can imagine what
+this might look like. If we decide to use the lambda calculus as our primary model of computation,
+there are multiple ways in which this formal structure can be turned into a programming language.
+Taking the core structures of the formal model (variables, lambda functions and application) and
+building a programming language around them involves bridging a large gap.
+A realistic programming language will need much more than the three basic primitives. Languages like
+Haskell resolve any design concerns that arise from this gap using a reasonable programmer's
+intuition---they aim at building a practically usable system.
 
 It is equally possible to use the same formal model of computation and highlight the gap---what
 remains to be added in order to design a practically usable programming language is by
@@ -840,7 +841,6 @@ later in this chapter.
 
 \begin{figure}
 \centering
-\vspace{-1em}
 \includegraphics[width=0.65\textwidth]{chapters/fig/inyerface.png}
 \caption{User Inyerface is a ``worst practice UI experiment'' and combines all imaginable
 poor practices to make correct completion of a form challenging such as counter-intuitivie
@@ -873,7 +873,7 @@ requires resolving a number of remaining design problems.
 \begin{figure}
 \centering
 \vspace{-1em}
-\includegraphics[width=0.85\textwidth]{chapters/fig/foquet.jpg}
+\includegraphics[width=0.8\textwidth]{chapters/fig/foquet.jpg}
 \caption{Hotel Fouquet designed by Edouard Fran\c{c}ois, located in Paris near the Champs Elys\'ees.}
 \label{fig:hotel}
 % https://praha.camp/magazin/detail/za-architektonickymi-skvosty-parize-s-adamem-gebrianem
@@ -920,30 +920,309 @@ and the need to look for them and expose them is another useful lesson that the 
 can take from critical post-modern architecture.
 
 
-\begin{figure}
-\includegraphics[height=12em]{chapters/fig/fit-jihocesky.jpg}\quad
-\includegraphics[height=12em]{chapters/fig/fit-strip.jpg}\\[1em]
-\includegraphics[height=8.5em]{chapters/fig/fit-tugendhat.jpg}\quad
-\includegraphics[height=8.5em]{chapters/fig/fit-sala-house.jpg}\quad
-\includegraphics[height=8.5em]{chapters/fig/fit-findouthous.jpg}
+\begin{figure}[t]
+\vspace{-1em}
+\includegraphics[height=10em]{chapters/fig/fit-jihocesky.jpg}\quad
+\includegraphics[height=10em]{chapters/fig/fit-dobravoda.jpg}\quad
+\includegraphics[height=10em]{chapters/fig/fit-house-vi.jpg}\\[1em]
+\includegraphics[height=10.7em]{chapters/fig/fit-isokon.jpg}\quad
+\includegraphics[height=10.7em]{chapters/fig/fit-tugendhat.jpg}\\[1em]
+\includegraphics[height=10.6em]{chapters/fig/fit-sala-house.jpg}\quad
+\includegraphics[height=10.6em]{chapters/fig/fit-strip.jpg}\quad
+% dobravoda - https://cs.wikipedia.org/wiki/Soubor:Kostel_na_Dobr%C3%A9_Vod%C4%9B-Novohradsko.jpg
 % strip - denise scott brown: https://www.readingdesign.org/denise-scott-brown-photos/9
 % sala - https://en.wikipedia.org/wiki/File:Sala_House_Parents_Realm_1.jpg
 % tugendhat - https://www.flickr.com/photos/giverny_com/36877628023/in/photolist-YbKu1P-4J3HtF-4J7XKh-4J3Hxr-2q9AVLT-2k8kJjf-3o6UC1-2mEffFe-ir6bD2-QpB1Mn-jeGrdX-irNkiN-irNP4z-irMjuz-irNjhQ-NevRiJ-2k8goCA-irMMKM-irMQwP-2k8kbWe-2k8kc6Y-2k8kc4J-nVVogH-2k8kcgn-2k8kJaT-2k8kJdt-jeHo7p-2k8kJi8-aeVAve-2k8kJbV-2k8gp9q-anTQqR-irMB3o-irNwHG-Yz6G6D-irMiQZ-2k8kcnE-2k8kJ2G-2oQs2xZ-yuu9bF-jeJuFN-2mcTMdE-5g8KH-nJEuNq-2q9HMf8-5g8Kk-yc9oXq-2mifXPW-2njVnzt-2njVkiz/
-\caption{things}
+% eisenman - https://eisenmanarchitects.com/House-VI-1975
+% isokon - https://www.flickr.com/photos/maggiejones/17338557816/in/photolist-2paYN7a-ssgWEj-sq9Db1-4A52rR-NCrec-E3NASp-NBXFf-4nvATQ-4nrxzc-8asA8-tJnxgo-8yckjU-2paYcx9-2paWp7N-aidSyZ-2paWpfD-2paXSBn-2paXSpd-2paXSed-2paYc8r-98yBWx-98BLLY-sspZPP-4vAEkM-ssrJBp-s97oGn-rvrfVm
+% selske - https://cs.wikipedia.org/wiki/Selsk%C3%A9_baroko#/media/Soubor:Zbudov3.jpg
+\caption{Seven examples that illustrate different approaches to achieving fit.
+(1) Vernacular farmhouse in South Bohemia built in the 19th century in the rural baroque style (``selské baroko''),
+(2) Church of Our Lady of Sorrows in Dobrá Voda with entrance from the side of the nave,
+(3) House VI by Peter Eisenman, bult 1972-75,
+(4) Bauhaus-inspired Isokon building in London, built 1929-32,
+(5) living space of the modernist Villa Tugendhat by Mies van der Rohe, 1928-30,
+(6) the entrance room of the Sala House built by Christopher Alexander in 1983-4, and
+(7) 1966 photo of the Las Vegas Strip by Denise Scott Brown from ``Learning from Las Vegas''.}
 \label{fig:fit}
 \end{figure}
 
-\section{Achieving Fit}
+\section{Ways of Achieving Fit}
+What I hope to achieve in this text is to document the ways through which architecture can convey
+critical understanding and see if those ways let us talk about important issues concerning software. I moved
+away from Christopher Alexander, for whom the main question that matters is whether building (or software)
+produces living structures in the world.
 
-ways of criticism (Oppositions, p372)
+I think that buildings and software should also raise critical points and much of the above was
+exploring some of the ways in which this can be done in software. I would now like to return
+to the basic question of how structures achieve good fit. This is a question that Christopher
+Alexander studies in detail in his ``Notes on the Synthesis of Form,''\endnote{cite} a book based
+on his PhD research written before his work on design patterns. This is, incidentally,
+also the text that infuriated Peter Eisenman who than opposed it in his own thesis on formal
+analysis of architecture.
 
-Modernism, Vegas, Alexander
-eisenmann - fin d'out h ou s - fit must become effect
+According to Alexander, ``every design problem begins with an effort to achieve fitness
+between two entities: the form in question and its context. The form is the solution to
+the problem; the context defines the problem.''\endnote{notes, p15} According to Alexander,
+the problem is that, in anything but the most simple scenarios, ``we cannot give an adequate
+description of the context we are dealing with.''\endnote{dtto, p20} The real-world is too
+complex and so an attempt to logically deduce the form from a description of the context is bound
+to fail. The different methods of achieving fit illustrated in Figure~\ref{fig:fit}
+approach this problem differently.
+
+The first approach to the problem is used by vernacular architecture, that is building done
+locally, in traditional ways and without guidance of professional architects. We do not need
+to appropriate ``charms of fairy-tale countries''\endnote{edited, rudofsky p3 - criticises our condescending
+narrative based on talking about exotic countries.} to explain this approach. Aside from
+the Musgum mud huts, Alexander talks about New England barns and my illustration is a typical
+farmhouse in the southern region of Czechia. The way good fit is achieved in vernacular
+architecture is by gradual adaptation. When building a new farmhouse, the local builder follows
+the same style as everyone else in the region. Since the needs of most farmers are similar,
+this will result in an adequate solution. When the context changes, the building style evolves
+gradually by small adaptations. A change is tried in one farmhouse and if it is beneficial, it is
+then replicated by other builders. In this mode of working, little is demanded from the individual
+builder. ``He need not himself be able to invent forms at all. (...) All that is required is that
+he should recognize misfits and respond to them by making minor changes.''\endnote{Notes, p58}
+Even if the changes are not improvements, it does not matter. They will simply not be adopted
+by others in subsequent buildings.
+
+According to Alexander, the professionalization of architecture destroyed this old process.
+However, Alexander also admits that the degree of complexity faced by modern architects is
+greater than that of vernacular builders. You cannot build a skyscraper using the method that
+works for a farmhouse. Professional architects thus approach the problem by analyzing the context
+and inventing a form to fit. This is the modernist methodology, rooted in the maxim ``forms follows
+function.''\endnote{Sulivan} Two examples of modernist architecture that illustrate different
+variations on the theme above are Villa Tugendhat and Isokon Flats. Villa Tugendhat was built as
+a private residence, to create ``a complete vision of luxurious Modernist living.''\endnote{Julia
+Jamrozik and Coryn Kempster, Growing up Modern. Childhoods in Iconic Homes, Basel, Birkhäuser, 2021, 83;
+quoted in Ana Tost\"oes - Modern Heritage Reuse. Renovation. Restoration (2022, Birkhäuser)}
+As such, it featured open plan living space, retractable glazed walls and a floor plan that
+reflects the needs of the family, including an easy access through the garage and a separate
+driver's appartment. In contrast to the generous space of the Villa Tugendhat, Isokon Flats were
+designed as ``minimal flats,''\endnote{Isokon, p60, also note this was theme of the 1929 CIAM congress}
+inspired by the question of ``how much space individuals needed to live in comfortably.''\endnote{dtto, p59}
+The flats were built for young professional men and women and provided a range of domestic services
+and meals made in a central kitchen. The two buildings are daring examples of radical new design
+that reflects the changing context. Both of the buildings invent a new form that and aims to
+achieve fit by analyzing the context and by emplying technical innovations.
+
+Christopher Alexander developed a range of different approaches to the problem of achieving
+fit throughout his career. In ``Notes on the Synthesis of Form'', he suggests that
+``we should see the process of achieving good fit (...) as a negative process of neutralizing
+the incongruities, or irritants, or forces, which cause misfit''\endnote{Notes, p24} and
+he describes an analytical incremental approach that identifies sub-problems (clusters of
+interlinked concerns) and gradually resolves those. His later work describes the problem as the
+search for what he calls ``quality without a name'', which happens when an environment is
+free of contradictions. In the writing on design patterns, Alexander and his collaborators
+replace the unwritten knowledge of vernacular architecture with an explicit pattern language.
+A good pattern language can then be used to design living structures:\endnote{p134}
+
+\begin{quote}
+Each living pattern resolves some system of forces, or allows them to resolve themselves.
+Each pattern creates an organization which maintains that portion of the world in balance.
+(...) And finally the quality without a name appears (...) when an entire system of patterns,
+interdependent at many levels, is all stable and alive.
+\end{quote}
+
+The Sala house designed by Alexander shown in Figure~\ref{fig:fit} employs numerous patterns to achieve
+the quality without a name. Sleeping is organized in alcoves (involving patterns such as Bed Cluster,
+Alcove, Marriage Bed), the house relies on natural light (Tapestry of Light and Dark, Sunny Place),
+and the inside of the house is in relationship with the outside garden (Connection to the Earth).
+The process relies on an extensive pattern language, which Alexander painstakingly developed with
+his co-authors over multiple years. The pattern language is supposed to capture the shared
+understanding of the community, which makes it possible to construct agreeable environment.
+Alexander's pattern language, however, leads to a particular style of buildings and Alexander
+himself later asked whether patterns are enough to generate the living structures he desires.
+Moreover, the buildings built using his pattern language are pleasant in a specific way and it is
+not clear whether the same approach can be used to construct other types of pleasant
+buildings.\endnote{See \url{https://tomasp.net/blog/2022/timeless-way/}}
+
+Christopher Alexander is not the only one who believes that the modernist rational approach
+to achieving fit is bound to fail. Robert Venturi, sometimes referred to as one of the founding
+fathers of post-modernism,\endnote{he does not agree % https://en.wikipedia.org/wiki/Complexity_and_Contradiction_in_Architecture
+and also worked closely with Denise Scott Brown} wrote in his 1966 book ``Complexity and
+Contradiction in Architecutre'' that Mies van der Rohe ``makes wonderful buildings only because
+he ignores many aspects of a building. If he solved more problems, his buildings would be far
+less potent.''\endnote{Complexity and Contradiction, p16} Venturi also cites Alexander
+to highlight that problems faced by architects ``increase in quantity, complexity and they also
+change faster than before.''\endnote{Complexity and contradiction, p16; citing Alexander's Notes}
+But rather than trying to resolve the resulting contradictions, Venturi welcomes them:\endnote{Complexity, p16}
+
+\begin{quote}
+I like complexity and contradiction in architecture. I do not like the incoherence or
+arbitrariness of incompetent architecture nor the precious intricacies of picturesqueness
+of expressionism. Instead, I speak of a complex and contradictory architecture based on the
+richness and ambiguity of modern experience, including that experience which is inherent in art.
+\end{quote}
+
+In his ``Complexity and Contradiction in Architecture,'' Venturi documents a large number of
+examples of architecture that accommodates complexity and contradiction using both historical
+examples and his own projects. The church in Dobrá Voda, shown above, illustrates Venturi's point
+that the complexity of a site supports richness lacking in purer compositions.\endnote{p28}
+The church is built in a village on a hill with a steep slope. Reflecting the site,
+the Baroque entrance is from the side of the nave and is visible from the open countryside
+that it faces---becoming an appealing landmark.
+
+I talk about Venturi in a section focused on achieving fit mainly because of his later work,
+``Learning from Las Vegas''\endnote{cite} written with Denise Scott Brown and Steven Izenour.
+The book is a study of the commercial strip, ``important to architects and urbanists today
+as were the studies of medieval Europe and ancient Rome and Greece to earlier generations.''\endnote{p.xi (preface)}
+For Venturi and his collaborators, the analysis ``is a socially desirable activity to the
+extent that it teaches us architects to be more understanding and less authoritarian.''\endnote{p6}
+
+Venturi, Scott Brown and Izenour point out that architects have typically been trying to change
+the existing environment rather than enhancing what is already there. The way of achieving
+fit with the new complex environment is thus to first understand the existing environment
+and its language---and then build with accordance to the language. In the case of the commercial
+strip, documented in the book, the language is primarily a language of signs, billboards, arrows
+and visual symbols. The ``obvious visual order of the street'' is in contrast with the ``difficult
+visual order of buildings and signs.''\endnote{p20} This multi-layered formal structure is not
+unlike that of the Hotel Foquet discussed in the previous section.
+
+The authors use the lessons learned as a justification for their own approach to architecture,
+which they call the decorated shed. According to this perspective, the architectural form of
+the building does not matter that much. A decorated shed is designed and built as a conventional
+shelter, reflecting ``proprietor's budget.''\endnote{p13} An additional content is added to
+the building in the form of signs---either as literal signs in the case of Las Vegas strip or
+as explicit decorations in case of more ordinary buildings. The fact that the authors look
+specifically at the commercial strip (and the Levittown suburb in their follow-up work) for
+inspiration reflects their acknowledgement of existing American culture---a position that
+is shared with the pop art movement. Venturi, Scott Brown and Izenour can thus be seen as
+assuming ``the role of servant to society'' whose task ``is to understand and interpret
+the wishes of the client.''\endnote{Oppositions, p178} This is in contrast to the modernist
+tendency ``to elevant client's value system and/or budget by reference to Art and
+Metaphysics.''\endnote{Learning, p102}
+
+The view of Venturi, Scott Brown and Izenour that architecture is ``embedded in a global ideology
+from which there is no escape'' is also a negation of the perspective of Peter Eisenman and a
+group referred to as ``the New York Five'' who see ``architecture as an autonomous
+discourse.''\endnote{Oppositions, 186} This school of architecture offers yet another perspective on
+the problem of achieving fit. As I discussed earlier, Eisenman is interested in developing
+architectural forms as formal structures, rooted in a formal architectural language and
+without direct reference to humanist ideals. His architecture is ``true to its own
+logic.''\endnote{\url{https://eisenmanarchitects.com/Fin-D-Ou-T-Hou-S-1983}}
+The problem of achieving fit is no longer a driving factor behind architecture, but
+something that can emerge as its effect.\endnote{dtto} How less likely this is when compared
+to other approaches likely depends on the degree to which the complexity of the problem of
+achieving fit, which other architects explicitly try to address, is tractable.
+
+The idea that structures emerging from formal manipulation will find their use is not
+exclusive to the proponents of autonomous architecture like Eisenman.
+The architectural style known as contextualism also disregards functionalist rationales
+and instead recognizes and replicates elements from the local environment. For ``if
+Americans won't promenade in urban plazas perhaps they will ice skate in them.''\endnote{Oppositions, p67}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{chapters/fig/resurrection.png}
+\caption{.}
+\label{fig:hotel}
+% https://geocities.restorativland.org/ResearchTriangle/2387/
+\end{figure}
+
+\section{Vernacular Software}
+
+The essential characteristics of vernacular architecture is that it is produced in traditional
+ways, without professional architects and that it achieves fit through gradual adaptation.
+It also typically only needs to address problems of limited complexity. Vernacular architecture
+develops over long period of time, so its relevance to the world of software is not obvious.
+Yet, there are some connections worth exploring.
+
+First of all
+
+
+The world of software is
+
+
+VERNACULAR
+
+c.f. golden era of HTML -
+%http://contemporary-home-computing.org/prof-dr-style/
+%digital folklore reader - https://monoskop.org/images/9/91/Lialina_Olia_Espenschied_Dragan_eds_Digital_Folklore_2009.pdf
+
+
+in PL, architecture destroyed hacker culter (c.f. Notes, p58)
+
+our attitude condescending (Rudofsky) - take indigenous sw more seriously?
+R?
+
+much to learn from architecture before it became experts art
+proto-systems?
+
+
+craft/learned through practice
+
+\section{more}
+
+
+
+MODERNIST
+conceptual coherence
+
+fred brook's - like resolving all contradictions; venturi is against
+one mind = modernist view
+
+refusal to recognize the passing of time (opp;p360)
+
+
+by adaptation
+
+utopian grid (seeing like a state)
+but cannot create working city - parasitici on informal processes
+
+--
+
+LAS VEGAS
+
+typescript learns type system from JS libraries
+
+DYI additions (op, p321) - Levittown - customized wordpress?
+
+reason ml adopts \{ \} for pop reasons
+
+esolangs?
+
+manhattan - only possible by extrapolating from history
+(any complex SW system)
+
+modern climate is factual rather than rational (Formal basis,intro?)
+p-values and big code?
+
+FORMAL
+
+monads / lambda calculus
+
+but also debate - create non-harmonious things
+
+
+
+ALEXANDER
+
+egoless - slow sw
+
+rpg's notion of inhabiting - programming systems
+
+cannot be built from abstract composable parts
+- copy and create for each specific setup
+
+
+
 
 
 \newpage
 
+RANDOM
+loft as a proof that geometric structure can be reused
+(c.f. ice rinks)
+
 HOW CAN IT BE DONE
+
+Double coding
+Jencks - p9, 40
+
+Critical langauge
+oppositions 376 - much of architecture comments on existing discourses
+what is critical? jencks 150
 
 but we have to make things more visible - if it is speaking only to programmers reading code,
 it is not much
@@ -988,13 +1267,12 @@ but SW is more than code - also docs etc. - take broader perspective!
 monuments / demoscene / esolangs / talks / hackathons
 (building as ritualistic activity to encourage social bonds - Aureli)
 
-
-
-
 CONCLUSION: PM liberated communicative potential (Jencks) - how to do this for PL?
 
-
 \section{Leftovers}
+
+architecture = concept/intent, function (modernist), structure, technics (19th cent), form
+- each of these is the paradigm of some language!
 
 grammar of architecture is useful for conceiving project but it is a fiction - Eisenman (Petit, 149)
 
@@ -1058,6 +1336,9 @@ INTRODUCTION
 
 eisenmann - use formal order to render architecture transparent
 
+CRITICAL LANGUAGE
+see ways of criticism (Oppositions, p372)
+
 SPACE/NAVIGATING
 * inhabiting, terrain vague, navigating in systems
 
@@ -1083,7 +1364,7 @@ COMPLEXITY
 * Jacobs, Venturi (Jencks, 116)
 
 SELF-REFERENTIALITY
-* "shapes that do not refer to something else (just other shapes)" (Oppositions, 205)
+* shapes that do not refer to something else (just other shapes) (Oppositions, 205)
 * return to language (Oppositions, 373); layers of signification
 * LANGUAGE, GRAMMAR
 
@@ -1117,5 +1398,8 @@ mis-leading axonometric drawings (Eisenmann)
 -> plans as the device (does not have to be built)
 basic L shape as critique of modernist simple building blocks
 -> DECONSTRUCTION
+
+ALSO contemporary thinking architecture - local materials etc.
+=> dtto for SW! (build sustainably)
 
 \theendnotes
