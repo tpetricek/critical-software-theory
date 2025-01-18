@@ -1114,6 +1114,8 @@ Americans won't promenade in urban plazas perhaps they will ice skate in them.''
 
 \section{Vernacular Software}
 
+% TODO: Also go through Brand's How Buildings learn for ideas about vernacular buildings
+
 The essential characteristics of vernacular architecture is that it is produced in traditional
 ways, without professional architects and that it achieves fit through gradual adaptation.
 It typically only needs to address problems of limited complexity. Vernacular architecture
@@ -1294,24 +1296,192 @@ language, highly optimized for its environment!
 
 \section{Modernism of Conceptual Coherence}
 
+It would be simplistic to reduce modernist architecture to the problem of achieving fit.
+As we saw above, modernist architects were interested in finding and supporting new modern ways
+of living. But this often came together with the need to find new architectural forms.
 
+The way of thinking about software that comes the closest to modernist architecture is
+the notion of conceptual integrity, developed by Fred Brooks in his influential book
+``The Mythical Man-Month''.\endnote{cite} As with modernist architecture, conceptual integrity
+is not merely about achieving good fit or developing a system according to its specification.
+It is also about internal logic and clarity of the involved structures:
 
-MODERNIST
-conceptual coherence
+\begin{quote}
+Every part must reflect the same philosophies and the same balancing of de\-siderata.
+Every part must even use the same techniques in syntax and analogous notions in semantics.
+Ease of use, then, dictates unity of design, conceptual integrity.\endnote{Brooks, p44}
+\end{quote}
 
-fred brook's - like resolving all contradictions; venturi is against
-one mind = modernist view
+Even though Brooks talks about internal consistency of the design, the motivating factor
+is function. It is not---as with architects exploring formal grammars---internal consistency
+of formal structures detachd from the reality. But for ``a given level of function, (...) that
+system is best in which one can specify things with the most simplicity and
+straightforwardness.''\endnote{dtto, p44}
+In software, the problem of achieving internal consistency is as tricky as the problem of achieving
+fit between the form and the context in architecture. Brooks believed that it is possible to
+achieve conceptual integrity if the design proceeds ``from one mind, or from a very small number
+of agreeing resonant minds.''\endnote{Brooks, p44}
 
-refusal to recognize the passing of time (opp;p360)
+Interestingly, the modernist methodology in the world of software also partly responded to
+the newly emerging ``modern'' ways of using software. The Mythical Man-Month was published
+in 1975. It reflected the author's experience of working on the operating system for the
+new IBM/360 line of computers. However, it also appeared a couple of years after other two
+major developments in the software industry. One was the 1968 NATO conference on Software
+Engineering that introduced the very term ``software engineering'' and is sometimes seen as
+marking the move from the ``black art of programming'' to the new science of ``software
+engineering''.\endnote{documented in cultures; ensmenger etc.}
 
+Another development was related more to the way computers were employed by businesses.
+The influential McKinsey report ``Unlocking the Computer's Profit Potential''\endnote{cite}
+published in 1968 argued that many ``large companies have successfully mechanized the bulk
+of their routine clerical and accounting procedures'' using computers. According to the report,
+most companies were only slowly realizing that the ``second stage of the computer revolution,
+unlike the first, entails real operational changes.''\endnote{report in magazine
+\url{http://www.bitsavers.org/magazines/Computers_And_Automation/196904.pdf}, p30}
+In other words, the managers responsible for the use of computers need to move from simple
+automation of existing processes to finding new ways of utilizing computers in their companies.
+I would argue that there is a similar interplay in this development as in the modernist
+architecture. Just like modernist architecture reflected and enabled new modern way of living,
+new modernist approach to software development has been interconnected with new modern ways
+of using computers from the 1970s onward.
 
-by adaptation
+The software development methodologies of the 1970s are now perhaps more obviously outdated
+than the modernist architecture of the 1930s. What followed them---and to what extent can the
+different alternatives be related to various post-modern tendencies in architecture---would be
+an interesting question to explore further. There may be some interesting analogies.
+I will look at ideas inspired by formalism of Eisenman and post-modernism of Venturi later.
+Concerning development methodologies specifically, many of the later developments learned to
+better acknowledge the ``complexity and contradiction'' involved in the typical sofware project.
+Distributed open-source development methodologies characterized by Raymond in ``The Cathedral and
+the Bazaar''\endnote{cite} emerge from complex social structures, but are at least as effective
+as Brooks' ``one mind''; the Agile development methods aim to achieve fit by gradual adaptation
+and would be closer to vernacular methods praised by Alexander.
 
-utopian grid (seeing like a state)
-but cannot create working city - parasitici on informal processes
+% READ: Form follows fiasco: https://archive.org/details/formfollowsfiasc00blak/
+% (and see other reflections on the failure of modernism in Jencks, p29)
 
-\section{More}
---
+Critics of modernist architecture and modernist urban planning pointed out a number
+of its limitations. Many of those are also relevant for software. One of them has been
+pointed out by French architect and theoreticiaan Bernard Tschumi:
+
+\begin{quote}
+While the puritanism of the Modern Movememnt and its followers has often been pointed out,
+its refusal to recognize the passing of time has rarely been noticed. (Not surprisingly,
+glass and glazed tiles have been among the preferred materials of the movement---for
+they do not reveal the traces~of~time).\endnote{oppositions, p360}
+\end{quote}
+
+Software systems do not decay in the same literal way as the materials used in buildings
+(there is no plaster falling off the concrete blocks of the software equivalent of the
+Villa Savoye as discussed in Tschumi's article). The kind of decay that software faces is more
+often caused by changes in its environment, that is the context that initially shaped the form.
+In the world of software, the requirements change as the situation in the real world that the
+software responds to changes, the technical platforms and systems on which software runs change,
+programming languages and styles evolve and components the software is built from change
+(npm packages being the most notorious example).
+
+Modernist software is not built to adapt well, just like most modernist buildings are not
+built to adapt well. Modernist architecture ``made the profound mistake of taking a
+snapshot of the high-rate-of-change `organic life' within building and immobilizing it
+in a (...) low-rate-of-change structure and skin of the building.''\endnote{Brand, p157}
+Or as Stewart Brand puts it ``The credo `form follows function' was a beautiful lie.
+Form froze function.''\endnote{dtto} The possibility of designing more adaptable building,
+as well as more adaptable software, is an interesting problem that I will return to later.
+(In particular, I want to see if there could be a software equivalent of Brand's ``material
+that looks bad before it goes bad,'' i.e., a way of building software where the material
+warns us about likely imminent structural faults.)
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{fig/pruitt-igoe.jpg}
+  \caption{The demolition of the second Pruitt–Igoe building, April 21, 1972.}
+  \label{fig:pruitt}
+  % https://en.wikipedia.org/wiki/Pruitt%E2%80%93Igoe
+\end{figure}
+
+Whereas the failures of modernist architecture were typically limited to individual buildings,
+the failures of modernist urban planning---rooted in the same principles of rational
+planning---were more high-profile. An iconic example has been a large housing project,
+built as part of urban renewal projects, often to replace former slums. The demolition
+of one such housing project, Pruitt-Igoe in St Louis, in 1972 has been labelled as the
+day modern architecture died by architectural critic Charles Jencks (Figure~\ref{fig:pruitt}).
+We can see the housing projects as monumental scale follow-ups to the modernist Isokon building
+that I examined earlier---and the monumental scale, as well as very different socio-economic
+conditions, is likely why their fate was different.
+
+The foremost critic to oppose the modernist urban planning was Jane Jacobs. In her 1961 book,
+``The Death and Life of Great American Cities,''\endnote{cite} Jacobs looked closely at
+the street life in Greenwich Village and Boston's North End neighborhood at the time and
+documents what makes them work. This includes lively mixed-use, dense population and
+``eyes on the street'', as well as diversity of buildings and diverse population. That is,
+properties that were mostly absent in modernist housing projects. Jacobs' analysis
+raises a number of questions about software, some of which I explored
+elsewhere such as:\endnote{Programming as Architecture, Design, and Urban Planning}
+If the rational structure does not produce working software, what are the characteristics
+of software and programming systems that actually do it?
+
+One interesting inquiry into the modernist urban planning came James C. Scott who identifies
+modernist patterns---similar to those of modernist urban planning---in a range of other
+areas of society including forestry, agriculture and politics. However, many of the modernist
+structures that Scott talks about find some way of working. In Scott's account, this is often
+enabled by ``dark twins'', that is inofficial structures that exist hidden from the official
+modernist view that arise ``to perform many of the various needs that the planned institution
+fails to fulfill.''\endnote{Scott,p261} One personification of the concept of dark twin,
+documented by Scott is the East German factory worker, touring the country in his Trabant
+auto to secure key missing parts not available through official channels, in exchange for
+valued goods such as fashionable clothes or champagne, purchased using factory funds.\endnote{p350}
+(Another example would be the illegal freelance engineer Archibald Tuttle in Terry Gilliam's
+movie Brazil.)
+
+\begin{figure}
+\begin{lstlisting}[language=ts]
+// Recursively retrieves a nested value from an object using a path
+function getValueByPath(obj: any, path: string[]): any {
+  if (path.length === 0) return obj;
+  if (typeof obj !== "object" || obj === null) return undefined;
+  const [key, ...restPath] = path;
+  return getValueByPath(obj[key], restPath);
+}
+
+// JSON data could come from external source
+const sample = '{ "user": {
+  "name": "Bup",
+  "address": { "city": "Prague", "zip": "17000" }
+}}';
+const parsed = JSON.parse(sample);
+
+// Access nested object members dynamically
+getValueByPath(parsed, ["user", "name"]);
+getValueByPath(parsed, ["user", "address", "zip"]);
+\end{lstlisting}
+\caption{A TypeScript example using the \texttt{any} type to dynamically process JSON input.}
+\label{fig:any}
+\end{figure}
+
+The idea of dark twins raises a question about software design as well. To parphrase Scott---to
+what extent is successful modernist software design parasitic on similar informal processes that
+it cannot create or maintain?\endnote{p6}
+
+I believe one illustration of the above is the type system of the TypeScript language.
+(More specifically, I will consider earlier versions of the language. In later versions, the
+understanding of types in TypeScript has evolved.) The type system of early TypeScript
+featured many types that are common in type systems of more pure languages: primitive types,
+object and interface types, function types, union types and generic types. Those are useful
+for much of ``modernist'' code that operates on clear and well-defined structures. But not
+all code is like that. All programs also need to work with some kind of external data
+(Figure~\ref{fig:any}) and this cannot easily be done using purely modernist type system.
+TypeScript solved the problem by also including a dark twin---the \texttt{any} type. The type
+breaks the pure modernist properties of the type system (the system cannot guarantee any safety),
+but its inclusion was likely crucial for the adoption of TypeScript. The system could actually
+be used in practice to work with data and interoperate with the JavaScript ecosystem.
+
+The later design of the TypeScript type system deserves a further analysis. Later versions
+continued adding type system features that reflected typical (non-modernist) coding patterns
+in JavaScript. As the number of dark twins in the system grew, they became integrated into the
+official structures of the type system---so what started as modernist design with the necessary
+supporting dark twins may have evolved into a post-modern assemblage.
+
+\section{Software Pop Culture}
 
 LAS VEGAS
 
@@ -1329,26 +1499,16 @@ manhattan - only possible by extrapolating from history
 modern climate is factual rather than rational (Formal basis,intro?)
 p-values and big code?
 
-FORMAL
+\section{Fit Emergent from Formal Structures}
 
 monads / lambda calculus
 
 but also debate - create non-harmonious things
 
 
-
-ALEXANDER
-
-egoless - slow sw
-
-rpg's notion of inhabiting - programming systems
-
-cannot be built from abstract composable parts
-- copy and create for each specific setup
-
-
-
-
+% TODO: Also add something about learning from Alexander, as he really meant it
+% (inhabiting as in RPG's writings, egoless / slow software ideas from my blog
+% and also the fact that fit cannot be achieved by using abstract composable parts)
 
 \newpage
 
@@ -1489,6 +1649,7 @@ MATERIALITY
 * looks bad before goes bad
 * materials - become ornament (Jencks, 183)
 * material honesty (Depaz)
+* problems of traditional materials are well-understood (Brand, p118) - you can use SW with known bugs
 
 ACHIEVING FIT
 * eisenmann - must become effect: https://eisenmanarchitects.com/Fin-D-Ou-T-Hou-S-1983

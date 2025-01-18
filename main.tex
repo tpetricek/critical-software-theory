@@ -42,30 +42,43 @@
 }
 \lstdefinelanguage{csharp}{
   basicstyle=\ttfamily\footnotesize,
-  commentstyle=\color{green},
   morecomment=[l]{//}, %use comment-line-style!
   morecomment=[s]{/*}{*/}, %for multiline comments
   morestring=[b]",
   commentstyle=\color{DarkOliveGreen},
-  stringstyle=\color{blue},
+  stringstyle=\color{SaddleBrown},
   identifierstyle=\color{black},
   keywords=[1]{static,class,private,delegate,void,int,public,get,var},
-  keywordstyle=[1]\color{blue},
+  keywordstyle=[1]\color{DarkBlue},
   keywords=[2]{Func,YCombinator,Program,RecursiveFunc,Console},
+  keywordstyle=[2]\color{violet}
+}
+\lstdefinelanguage{ts}{
+  basicstyle=\ttfamily\footnotesize,
+  morecomment=[l]{//}, %use comment-line-style!
+  morecomment=[s]{/*}{*/}, %for multiline comments
+  morestring=[b]',
+  morestring=[b]",
+  commentstyle=\color{DarkOliveGreen},
+  stringstyle=\color{SaddleBrown},
+  identifierstyle=\color{black},
+  keywords=[1]{function,any,string,if,return,null,undefined,const},
+  keywordstyle=[1]\color{DarkBlue},
+  keywords=[2]{getValueByPath},
   keywordstyle=[2]\color{violet}
 }
 \lstdefinelanguage{csxml}{
   basicstyle=\ttfamily\footnotesize,
   morestring=[b]",
-  moredelim=[s][\bfseries\color{Maroon}]{<}{\ },
-  moredelim=[s][\bfseries\color{Maroon}]{</}{>},
-  moredelim=[l][\bfseries\color{Maroon}]{/>},
-  moredelim=[l][\bfseries\color{Maroon}]{>},
+  moredelim=[s][\color{DarkBlue}]{<}{\ },
+  moredelim=[s][\color{DarkBlue}]{</}{>},
+  moredelim=[l][\color{DarkBlue}]{/>},
+  moredelim=[l][\color{DarkBlue}]{>},
   morecomment=[s]{<?}{?>},
   morecomment=[s]{<!--}{-->},
   commentstyle=\color{DarkOliveGreen},
-  stringstyle=\color{blue},
-  identifierstyle=\color{red}
+  stringstyle=\color{SaddleBrown},
+  identifierstyle=\color{violet}
 }
 
 \begin{document}
