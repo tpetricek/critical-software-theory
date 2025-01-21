@@ -1433,6 +1433,10 @@ valued goods such as fashionable clothes or champagne, purchased using factory f
 (Another example would be the illegal freelance engineer Archibald Tuttle in Terry Gilliam's
 movie Brazil.)
 
+% Other dark twins:
+% * Comments in listings package docs
+% * Stack overflow as replacement for docs
+
 \begin{figure}
 \begin{lstlisting}[language=ts]
 // Recursively retrieves a nested value from an object using a path
@@ -1481,7 +1485,180 @@ in JavaScript. As the number of dark twins in the system grew, they became integ
 official structures of the type system---so what started as modernist design with the necessary
 supporting dark twins may have evolved into a post-modern assemblage.
 
-\section{Software Pop Culture}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.85\textwidth]{fig/palazzo.jpg}
+  \caption{Additonal floors and other additions on the top of a 19th century palazzo in Naples}
+  \label{fig:palazzo}
+  % own
+\end{figure}
+
+\section{Complexity and Contradiction in Software}
+
+The TypeScript story that I hinted at in the previous section may serve as an illustration of an
+important fact. In the earlier versions, we could read the language as being based on modernist
+design, featuring strong rational type system. There were some unavoidable dark twins, necessary
+to make the design practical, but those were only (somewhat) reluctantly admitted. However, the
+later versions of TypeScript seem to acknowledge and embrace the complexities and contradictions
+inherent in the system, which combines some aspects of initial rational design with the many
+complexities of the environment and perhaps also whims of the most recent JavaScript framework
+creators.
+
+Should programmers and computer scientists embrace complexity and contradiction in software,
+in ways that are similar to those advocated by Robert Venturi for architecture? First, there
+is a certain honesty in acknowledging complexity and contradiction in cases where it cannot
+be avoided. Venturi himself also does not argue for introducing unnecessary complexity. He says
+that ``abstruse architecture is valid when it reflects the complexities and contradictions of
+content and meaning.''\endnote{Complexity, p25} Venturi praises a number of benefits
+of working with this fact.
+
+The fact that contradictions support ``richness'' in design (as illustrated by the church in
+Dobrá Voda above) is perhaps primarily aesthetical and not necessarily of interest for software
+designers. Still, working in an atypical context may serve as a source of inspiration for novel
+design. For example, many of the interesting aspects of the Erlang programming langauge arise
+from the fact that it was initially designed for telephony applications, which are highly
+concurrent, distributed and must be fault tolerant, supporting change ``on the fly'' without
+a loss of service during update.\endnote{From ``A History of Erlang''}
+
+Another interesting observation about complexity made by Venturi is that complexity is robust.
+It provides an answer to the criticism of modern design that I mentioned in the previous section.
+Whereas ``one foreign element casts into doubt the entire effect of some modern
+buildings,''\endnote{p42} a ``good deal of clutter'' and renovations does not destroy the
+Italian urban scene of many times adapted and reconstructed palazzi (Figure~\ref{fig:palazzo}).
+This seems to be the case about programming languages too. Consider the C++ language as an
+example. ``C++ is complicated, too complicated.''\endnote{Directions \url{https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0939r2.pdf}}
+It also has many ``complicating legacy features.''\endnote{dtto} Yet, none of those have
+destroyed the coherence of the language. The language embraces the complexity:
+
+\begin{quote}
+Today, some of the most powerful design techniques combine aspects of traditional object-oriented
+programming, aspects of generic programming, aspects of functional programming, and some
+traditional imperative techniques. Such combinations, rather than theoretical purity, are the
+ideal.\endnote{Directions}
+\end{quote}
+
+Although the language designers still strive for coherence, they also acknowledge that
+a design ``by a 350+ member committee is unlikely to produce a coherent result.'' But given
+the complexity of the ecosystem, there is no way of avoiding this. A  ``mature language needs
+dozens or even hundreds of people working on the huge variety of problems that must be
+faced.''\endnote{Thriving in a Crowded and Changing World: C++ 2006–2020} I believe that the
+design of C++ has been embracing complexity and contradiction, perhaps for longer than the
+designers would admit. But this has made the langauge robust to additions and extensions that
+were needed to keep it ``thriving in a crowded and changing world.''\endnote{HOPL paper title}
+
+
+\begin{figure}
+\centering
+\begin{minipage}[t]{.4\textwidth}%
+\vspace{0em}
+\raggedleft
+\vspace{-1em}
+\includegraphics[width=0.9\textwidth]{fig/villas.png}
+\end{minipage}\quad\quad
+\begin{minipage}[t]{.4\textwidth}
+\caption{Two villas used to illustrate how contradiction can be manifested. Contradiction is
+  adapted in Villa Pignatelli (above), and juxtaposed in Villa Palomba (below).}
+\label{fig:villas}
+\end{minipage}
+\end{figure}
+
+Venturi also identifies two ways in which contradictions can be manifested (Figure~\ref{fig:villas}).
+In case of adapted contradiction, the design finds some compromise between the two contradicting
+factors, such as by adapting the window mouldings. In case of juxtaposed contradiction, there are
+no compromises and, for example, windows appear where the inner layout needs them. The Hotel
+Foquet (Figure~\ref{fig:hotel}) was an extreme case of this approach. Venturi contrasts the two
+options as follows:
+
+\begin{quote}
+Contradiction adapted is tolerant and pliable. It admits improvisation. It involves the
+disintegration of a prototype---and it ends in approximation and qualification. On the other
+hand, contradiction juxtaposed is unbending. It contains violent contrasts and uncompromising
+oppositions. Contradiction adapted ends in a whole which is perhaps impure. Contradiction
+juxtaposed ends in a whole which is perhaps unresolved.
+\end{quote}
+
+I believe that we can, again, find examples of both approaches in the domain of programming
+language design. Take, for example, the problem of integrating functional programming languages
+with the support for side-effects such as performing IO operations. On the one hand, in languages
+like OCaml and F\#, the contradiction is adapted. Side-effects are tolerated as part of normal
+functional programs at a certain cost---such as the impossibility of making such language lazy.
+On the other hand, in languages that rely on monads like Haskell, the contradiction is juxtaposed.
+Effectful computations are explicit and their integration is unbending. And whereas the OCaml and
+F\# design is impure, the Haskell design is unresolved.
+
+\begin{figure}
+\centering
+\includegraphics[height=14em]{fig/nursehq.jpg}\quad
+\includegraphics[height=14em]{fig/nursehq-floor.png}
+\caption{Headquarters Building, North Penn Visiting Nurse Association, Venturi and SHort, 1960.}
+\label{fig:nursehq}
+% Diagram from: https://ddvm.org/the-daring-diagonal-book/
+% Photo from: https://x.com/VSBAllc/status/1376911521591267330
+\end{figure}
+
+Another interesting aspect of acknowledging and working with complexity is that it can aid
+transparency. This can be illustrated using one of Venturi's own projects, documented in the
+Complexity and Contradiction book (Figure~\ref{fig:nursehq}). The contradiction that the design
+resolves is between the ``complex inside (...) with varieties of spaces and special storage
+accommodations'' and ``bold scale and simple form'' of the outside of the building. A trace of
+the resolution of the contradiction can be seen in the visible form of the building:
+
+\begin{quote}
+As for the program complexities of the interior, a hint of the storage intricacies is
+confirmed in the alternating recessions of windows and closets in~the~front.\endnote{Contradiction, p109}
+\end{quote}
+
+In other words, if we look at the building front (and perhaps know what we are looking for),
+we can see traces of the interior storage spaces in the facade. The building is not trying to
+hide the fact behind a simple uniform facade. There is, perhaps, a degree of honesty in the
+design, but it also allows us to understand the building and its function better.
+
+I believe that embracing a design which leaves a trace of complexities it resolves is an interesting
+option for software and programming systems. As software designers, we are often using abstractions
+to hide the internals of a system from its users (or other developers). But such abstractions often
+hide contradictions that the implementors had to resolve in some, often imperfect way. If the
+abstractions do not leave any hint of such complexities, it is easy to hit their limitations and
+use them in a way in which they break. Being able to see through the abstractions---even if
+through limited hints---may thus be of a practical value.\endnote{c.f. the mu project?}
+How exactly to achieve this, I leave as an open question for now. 
+
+\section{Learning from Software Pop Culture}
+
+
+
+
+
+
+~
+
+~
+
+
+There are at least three different ideas that we can use to look at software, which arise
+from the work of Robert Venturi, Denise Scott Brown and their collaborators.
+
+support transparency
+
+
+In later
+versions,
+
+
+we can
+
+Sometimes, there are two ways of
+
+
+The int
+
+
+
+
+There are two lessons that we can
+
+
+
+
 
 LAS VEGAS
 
