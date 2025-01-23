@@ -21,6 +21,7 @@
 %\usepackage{changepage} % adjustwidth
 \usepackage{hyperref}
 \usepackage{hypcap}
+\usepackage{scrextend} % addmargin
 
 \urlstyle{sf}
 \widowpenalties 2 10000 0
@@ -53,18 +54,33 @@
   keywords=[2]{Func,YCombinator,Program,RecursiveFunc,Console},
   keywordstyle=[2]\color{violet}
 }
+\lstdefinelanguage{ocaml}{
+  basicstyle=\ttfamily\footnotesize,
+  morecomment=[s]{/*}{*/},
+  morecomment=[s]{(*}{*)},
+  identifierstyle=\color{black},
+  keywords=[1]{module,type,sig,int,val,let,end},
+  keywordstyle=[1]\color{DarkBlue},
+  keywords=[2]{MySig,MyModule},
+  keywordstyle=[2]\color{violet}
+}
 \lstdefinelanguage{ts}{
   basicstyle=\ttfamily\footnotesize,
   morecomment=[l]{//}, %use comment-line-style!
   morecomment=[s]{/*}{*/}, %for multiline comments
   morestring=[b]',
+  morestring=[b]`,
   morestring=[b]",
   commentstyle=\color{DarkOliveGreen},
   stringstyle=\color{SaddleBrown},
   identifierstyle=\color{black},
-  keywords=[1]{function,any,string,if,return,null,undefined,const},
+  keywords=[1]{function,any,string,if,return,null,undefined,const,interface,extends,type,let},
   keywordstyle=[1]\color{DarkBlue},
-  keywords=[2]{getValueByPath},
+  keywords=[2]{getValueByPath,createElement,Document,Node,GlobalEventHandlers,
+    NodeSelector,DocumentEvent,ParentNode,TailwindTextColor,Colors,Shades,
+    HTMLAnchorElement,HTMLAppletElement,HTMLAreaElement,HTMLAudioElement,HTMLBaseElement,
+    HTMLBaseFontElement,HTMLQuoteElement,HTMLBodyElement,HTMLVideoElement,HTMLPreElement,
+    HTMLElement,MSHTMLWebViewElement},
   keywordstyle=[2]\color{violet}
 }
 \lstdefinelanguage{csxml}{
@@ -85,6 +101,17 @@
 \title{\Huge \textbf{Critical Reading of Software}\\~\\}
 \author{Tomas Petricek}
 \maketitle
+
+% THINGS TO FIGURE OUT:
+%
+% * is there just too many random architectural references here?
+%   (perhaps, but that's what I can do based on my reading...)
+% * now its organized by architectural ideas with software scattered around
+%   (alternative would be to start from SW - e.g. chapter on TS)
+%   (or, at least add SW-centric appendix or interleave?)
+%
+%
+
 
 \include{chapters/introduction}
 

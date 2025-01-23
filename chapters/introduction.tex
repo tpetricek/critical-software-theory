@@ -1549,7 +1549,7 @@ were needed to keep it ``thriving in a crowded and changing world.''\endnote{HOP
 
 \begin{figure}
 \centering
-\begin{minipage}[t]{.4\textwidth}%
+\begin{minipage}[t]{.5\textwidth}%
 \vspace{0em}
 \raggedleft
 \vspace{-1em}
@@ -1588,8 +1588,8 @@ F\# design is impure, the Haskell design is unresolved.
 
 \begin{figure}
 \centering
-\includegraphics[height=14em]{fig/nursehq.jpg}\quad
-\includegraphics[height=14em]{fig/nursehq-floor.png}
+\includegraphics[height=15em]{fig/nursehq.jpg}\quad
+\includegraphics[height=15em]{fig/nursehq-floor.png}
 \caption{Headquarters Building, North Penn Visiting Nurse Association, Venturi and SHort, 1960.}
 \label{fig:nursehq}
 % Diagram from: https://ddvm.org/the-daring-diagonal-book/
@@ -1620,63 +1620,253 @@ hide contradictions that the implementors had to resolve in some, often imperfec
 abstractions do not leave any hint of such complexities, it is easy to hit their limitations and
 use them in a way in which they break. Being able to see through the abstractions---even if
 through limited hints---may thus be of a practical value.\endnote{c.f. the mu project?}
-How exactly to achieve this, I leave as an open question for now. 
+How exactly to achieve this, I leave as an open question for now.
 
 \section{Learning from Software Pop Culture}
 
+Venturi's rejection of modernism was based on finding richnes resulting from complexity and
+contradiction in a wide range of historical and vernacular examples. Learning from Las Vegas
+extends the critique, arguing that architects should also pay attention to the commercial
+vernacular and, generally, the way buildings resulting from the contemporary
+culture are structured. The idea that Venturi, Scott Brown and Izenour derive from their study
+is that of a decorated shed, a building with simple form whose meaning is defined by its use
+of signs. I believe we can use both of these concepts---learning from the pop culture and
+the notion of a decorated shed---to critically examine software and programming systems.
+
+In programming languages and systems, the idea that a programming language can be seen as a
+formal mathematical entity was an major invention at the end of the 1950s. It
+facilitated the development of many programming languages and concepts, including the influential
+Algol language. The consequence of the view was that languages were often designed mainly as
+formal structures and their quality was judged by their internal coherence (which can be seen as
+a combination of modernist view that I discussed above and formalism that I return to later).
+
+\begin{figure}[t]
+\begin{minipage}[t]{.5\textwidth}%
+\begin{lstlisting}[language=ocaml]
+(* Define abstract signature of a module
+   and provide concrete implementation *)
+module type MySig = sig
+  type t = int
+  val x: int
+end
+module MyModule: MySig = struct
+  type t = int
+  let x = 10
+end
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}[t]{.5\textwidth}%
+\begin{lstlisting}[language=ocaml]
+/* Define abstract signature of a module
+   and provide concrete implementation */
+module type MySig = {
+  type t = int;
+  let x: int;
+};
+module MyModule: MySig = {
+  type t = int;
+  let x = 10;
+};
+\end{lstlisting}
+\end{minipage}
+\caption{An example from a comparison between OCaml and Reason ML showing the new syntax.}
+\label{fig:reason}
+\end{figure}
+
+However, a number of programming languages moved away from the strictly modernist and formalist
+designs and embraced interaction with the context in which they operate---or even learn from
+the commercial culture and embrace some of their pop symbols. A programming language that
+both conceptually and technically fits the notion of a decorated shed is Reason ML.
+It was released in 2016 and has been described as:
+
+\begin{quote}
+Reason is not a new language; it's a new syntax and toolchain powered by the battle-tested
+language, OCaml. Reason gives OCaml a familiar syntax geared toward JavaScript programmers
+(...).\endnote{\url{https://reasonml-old.github.io/guide/what-and-why}}
+\end{quote}
+
+The Reason ML provides new syntax and tooling for the existing and much older OCaml language.
+Despite numerous advanced aspects, OCaml can be seen as a simple and conventional underlying
+structure. However, to produce a language that is more appealing to the public---the JavaScript
+developers---the shed is decorated with a new syntax derived from JavaScript. In particular,
+Reason ML uses curly brackets and JavaScript-like syntax for comments (Figure~\ref{fig:reason}).
+Although there are some technical advantages of the syntax, the main motivation for the
+syntactic redecoration is familiarity.
+
+The example of Reason ML shows that the architectural design principle of a decorated shed,
+conceived of by Venturi, Scott Brown and Izenour can be directly applied in the world of software.
+As with Venturi's buildings based on the decorated shed idea, Reason ML was received with mixed
+reactions. In particular, some saw it as a superficial step backward. But the example also shows
+how the design principle lets designers avoid the modernist reinvention of form. Rather than
+solving the problem of fit anew, the designers used an existing adequate solution and make it
+more appealing for the context that it exists in.
+
+The concept of a decorated shed can also be linked to a point made by Fred Brooks in his essay
+No Silver Bullet,\endnote{cite} where he argued in 1986 that:
+
+\begin{quote}
+There is no single development, in either technology or management technique, which by itself
+promises even one order of magnitude improvement in productivity, in reliability, in
+simplicity.\endnote{Man-Month anniversary ed, p181}
+\end{quote}
+
+Brooks' argument was based on the analysis of the complexity of software design, which is
+mainly rooted in essential complexity, rather than in accidental complexity arising from the
+imperfection of our processes and tools. Resolving the essential complexity in software design
+amounts to achieving fitness between the form and the context. Brooks suggest
+some ``promising attacks'' on the problem including ``buy versus build'':
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{fig/hexagon.jpg}
+  \caption{A highly customized WordPress web page for the Hexagon architectural firm. Their
+  buildings may not be decorated sheds, but their web site certainly is.}
+  \label{fig:wordpress}
+  % own screenshot
+\end{figure}
+
+\begin{quote}
+The most radical possible solution for con structing software is not to construct it at all.
+Every day this becomes easier, as more and more vendors offer more and better software products
+for a dizzying variety of applications.\endnote{Man-Month anniversary ed, p197}
+\end{quote}
+
+The development envisioned by Brooks in 1986 has happened in multiple areas. Brooks already
+mentioned database systems and spreadsheets, but there is a great number of packages that are
+available ranging from e-commerce platforms and accounting software to content management systems.
+Many of those systems follow the design principle of a decorated shed in a very literal sense.
+For example, content management systems such as WordPress (Figure~\ref{fig:wordpress}) make it
+possible to customize the publicly facing look of the system through themes, while the underlying
+structure remains the same. (Although, the structure can often also be adapted configured via
+plugins.) Again, the decorated shed makes it possible to use an existing adequate strucutre,
+but decorate it with symbols and ornaments to communicate a desired message.
+
+% TODO: WordPress is even more "DYI" than other cases - maybe link this also to
+% Scott Brown & Venturi later "Learning from Levittown" which looks at DYI additions?
 
 
+\begin{figure}[t]
+\noindent
+A type definition for \texttt{createElement} using overloaded function signature (TypeScript 2.0):
 
+\begin{addmargin}[2em]{0em}
+\begin{lstlisting}[language=ts]
+interface Document extends Node, GlobalEventHandlers,
+    NodeSelector, DocumentEvent, ParentNode {
 
+  /**
+    * Creates an instance of the element for the specified tag.
+    * @param tagName The name of an element.
+    */
+  createElement(tagName: "a"): HTMLAnchorElement;
+  createElement(tagName: "applet"): HTMLAppletElement;
+  createElement(tagName: "area"): HTMLAreaElement;
+
+  /* 75 lines of code listing other overloads omitted */
+
+  createElement(tagName: "video"): HTMLVideoElement;
+  createElement(tagName: "x-ms-webview"): MSHTMLWebViewElement;
+  createElement(tagName: "xmp"): HTMLPreElement;
+  createElement(tagName: string): HTMLElement;
+
+  /* 900 lines of code listing other DOM functions omitted */
+}
+\end{lstlisting}
+\end{addmargin}
+% https://github.com/microsoft/TypeScript/blob/release-2.0/lib/lib.dom.d.ts
+
+\noindent
+A type definition for Tailwind class names using template string literals (TypeScript 4.1):
+
+\begin{addmargin}[2em]{0em}
+\begin{lstlisting}[language=ts]
+type Colors = "red" | "blue" | "green" | "yellow";
+type Shades = "100" | "200" | "300" | "400" | "500";
+
+type TailwindTextColor = `text-${Colors}-${Shades}`;
+
+let validClass: TailwindTextColor = "text-red-500";
+let invalidClass: TailwindTextColor = "text-purple-900";
+\end{lstlisting}
+\end{addmargin}
+% From ChatGPT - I don't think anyone actually uses this. Maybe find a better example?
+
+\caption{Two definitions that use increasingly complex type system features to provide
+  accurate TypeScript types for external JavaScript libraries.}
+\label{fig:tstypes}
+\end{figure}
+
+Decorated shed is an intriguing specific design principle that can clearly have implications
+for software and programming systems, but we can also explore the more general point
+of learning from existing urbanism---or software ecosystems. After all, Learning from
+Las Vegas ``is a study of method, not content.''\endnote{Vegas, p6} How else can we learn
+from existing software ecosystems when designing new structures? I will, agian, use TypeScript
+as my example. Unlike Reason ML, TypeScript is not merely a decorated shed, but a new language
+with its own new complexities. As a superset of JavaScript, the language is derived from an
+existing structure with complex and contradictory history. We could analyze this and, for example,
+document what kind of richnes emerges from the complexity and when the complexity is adapted or
+juxtaposed. (JavaScript and TypeScript mostly seem to follow concilliatory approach resulting in
+adapted complexity.)
+
+However, I want to focus on one aspect of the TypeScript type system design that can be seen as an
+example of learning from the pop culture. TypeScript programmers need to interoperate with a large
+number of JavaScript libraries. In order to provide type annotations for those libraries,
+the type system of TypeScript needs to be expressive enough to cover the scenarios that often
+appear in existing libraries. The designers thus need to analyze existing practices and libraries,
+many of which emerged without much concern for programming language or type system design.
+Figure~\ref{fig:tstypes} provides two examples. The first code snippet shows how TypeScript
+overloading made it possible to provide a typed interface for the \texttt{createElement} function,
+which returns a different kind of object depending on the value of the first parameter
+(and which predates TypeScript by some 15 years). The snippet combines string literal types
+(treating a string value as a type) and overloading.\endnote{The specific snippet comes from the
+source code of TypeScript 2.0, but the features existed in earlier version. In later versions of
+TypeScript, the same is achieved using \texttt{keyof HTMLElementTagNameMap} instead.}
+The second snippet uses template literal types, which make it possible to construct string literal
+types through templates. Here, the feature is used to define type for a range of valid CSS class
+names that the external library, Tailwind, defines.
+
+To what extent is it fitting to see JavaScript libraries as a commercial pop culture of Las Vegas
+may be open to discussion. The more important point here is the design methodology that
+language designers need to use if they are creating a language to fit with an existing
+complex and contradictory ecosystem. As noted by Venturi and his co-authors,
+``analysis of existing American urbanism (...) teaches us architects to be more
+understanding and less authoritarians in the plans we make (...).''\endnote{p6}
+In the same way, understanding and learning from what exists in existing software ecosystems
+that programming languages interact with teaches programming langauge designers to be
+less authoritarian and and adapt (or juxtapose!) their designs with respect to this context.
+
+% TODO: Is there anything to be said here about esolangs?
+% TODO: In a similar style, Koolhaas' analysis of Manhattan is also about 'learning'
+%   Like Manhattan, any complex SW system will have complexity that can only be
+%   explained by understanding its history. Could elaborate on this...
+
+The analysis of existing context and culture can be done in a number of ways and result in
+a range of designs. To some extent, the design of JavaScript still aims at the modernist maxim
+``less is more''. For example, it resolves the complexity of the \texttt{createElement} typing
+using otherwise useful and reusable constructs (overloading and string literals) rather than
+through ad-hoc mechanism. But the complexity of the ecosystem in which it exists forces it to
+follow the post-modernist approach ``less is a bore''.
+
+An even more modernist approach to learning
+from the preexisting context can be illustrated by various attempts to base the design of a
+programming language on empirical observations of programmers, or the analysis of existing code
+in large software repositories such as GitHub.\endnote{Some references, some criticism of this}
+Such over-reliance on facts is the starting point for Peter Eisenman's doctoral work, who
+explains the problem with reference to an earlier analysis by American historian Carl L. Becker:
+
+\begin{quote}
+Becker describes the modern climate of opinion as factual rather than
+rational (...). For Becker, history, the question of facts and how they are related,
+has replaced reason and logic, the question of `why?'\endnote{Formal basis, p11}
+\end{quote}
+
+In the next section, I will move from the factual approaches---be it the modernist analysis
+of context or post-modernist reading of contemporary culture and its symbols---to software and
+programming systems designs that employ rational analyses based on reason and logic.
 
 ~
 
-~
-
-
-There are at least three different ideas that we can use to look at software, which arise
-from the work of Robert Venturi, Denise Scott Brown and their collaborators.
-
-support transparency
-
-
-In later
-versions,
-
-
-we can
-
-Sometimes, there are two ways of
-
-
-The int
-
-
-
-
-There are two lessons that we can
-
-
-
-
-
-LAS VEGAS
-
-typescript learns type system from JS libraries
-
-DYI additions (op, p321) - Levittown - customized wordpress?
-
-reason ml adopts \{ \} for pop reasons
-
-esolangs?
-
-manhattan - only possible by extrapolating from history
-(any complex SW system)
-
-modern climate is factual rather than rational (Formal basis,intro?)
-p-values and big code?
-
-\section{Fit Emergent from Formal Structures}
+\section{Emergence from Formal Structures}
 
 monads / lambda calculus
 
