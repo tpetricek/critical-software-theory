@@ -1877,12 +1877,13 @@ Center project (Peter Eisenman, 2002).}
 \end{figure}
 
 \section{Emergence from Formal Structures}
-At first sight, the formal structures designed by Peter Eisenman seem similar to modernist
+At the first sight, the formal structures designed by Peter Eisenman seem similar to modernist
 architecture (Figure~\ref{fig:wtc}) and some of his critics saw his focus on formalism and
-abstraction as a return to modernist ideals. As I illustrated through a number of examples,
-Eisenman works with simple formal modernist structures, but he uses them for a different
+abstraction as a return to outdated modernist ideals. As I illustrated through a number of examples
+earlier, Eisenman works with simple formal modernist structures, but he uses them for a different
 purpose than modernist architects. His project for the World Trade Center memorial, for
-example, turns the horizontal Manhattan grid into a vertical one.
+example, turns the horizontal Manhattan grid into a vertical one, using a rational modernist
+structure as a formal entity.
 
 Eisenman's approach, apparent already in The Formal Basis of Modern Architecture is to work
 with basic geometric structures such as the grid, mass, volumes and surfaces---and to see how
@@ -1899,29 +1900,28 @@ the first digital electronic computers and programming languages. They are thus 
 abstractions, resulting from the analysis of the function of software, but a priori structures
 of computation. The two models can be contrasted with formal models of parallel and concurrent
 systems such as Hoare's Communicating Sequential Processes (CSP) developed in the
-1970s.\endnote{CSP paper; also see ``A Brief History of Process Algebra''.}
-Those formal models are based on existing programming patterns. For example, Hoare explicitly notes
+1970s,\endnote{CSP paper; also see ``A Brief History of Process Algebra''.}
+which were derived from existing programming patterns. For example, Hoare explicitly notes
 that his notion of a process ``may constitute a synthesis of a number of familiar and new
 programming ideas.''\endnote{CSP paper}
 
 To keep the software examples as close to the architectural ones, we can look for formal
-structures that describe some aspect of computation or program structure, but are not
-directly derived from practical programming languages. An interesting question to ask is how
-those structures resolve the problem of achieving fit between the form and context. Does the
-fit emerge as a (perhaps) accidental effect of the use of formal structures? Or does the use
+structures that describe some aspect of computation or program structure, but are not conceived
+as models of existing practical programming languages. An interesting question to ask is how
+those structures resolve the problem of achieving fit between the form and the context. Does the
+fit emerge as (perhaps) an accidental effect of the use of formal structures? Or does the use
 of autonomous formal structures result in ``unlivable'' buildings, as critics of Eisenman
-occasionally point out?
+occasionally like to point out?
 
 If we see the lambda calculus as the formal structure that underpins functional programming
-languages, then there are certainly many areas where the emergent form fits with a context.
-There are many areas where functional programming languages have been successful and highly
-influential. Functional list processing, which inspired LINQ and Java Streas would be only
-one such example. This claim necessitates some caution, though. The Lisp language, often regarded
+languages, then there are certainly many domains where the emergent form fits with a context.
+Functional list processing, which inspired LINQ and Java Streams, would be only one such example.
+This claim necessitates some caution, though. The Lisp language, often regarded
 as the first functional programming language was not directly based on the lambda calculus.
 Its author, John McCarthy ``was aware of [the lambda calculus] but had not studied
 it.''\endnote{Turner, ``Some History of Functional Programming Languages''} The specific
-example of functional list processing also does not require nearly the full power of the
-lambda calculus.\endnote{See \url{https://programming-journal.org/2020/4/8/}}
+example of functional list processing also does not require nearly the full power (or even the
+key structures) of the lambda calculus.\endnote{See \url{https://programming-journal.org/2020/4/8/}}
 
 Later functional programming languages, including most notably Haskell, have the lambda
 calculus as a more direct predecessor. The popularity and non-negligible industrial adoption
@@ -1935,7 +1935,9 @@ structure, but a result of a pragmatic resolution of the remaining design proble
 
 
 \begin{figure}
+\centering
 \vspace{-1em}
+\begin{minipage}[t]{.5\textwidth}%
 \begin{lstlisting}[language=haskell]
 import Control.Monad (forM_, forM)
 
@@ -1952,8 +1954,11 @@ main = do
     forM_ (zip [1..] words) $ \(i, word) -> do
         putStrLn $ show i ++ ". " ++ word
 \end{lstlisting}
+\end{minipage}
+\vspace{-0.5em}
 \caption{A Haskell program that echoes a list of words read from the user.}
-\label{fig:csaml}
+\label{fig:monads}
+\vspace{-0.5em}
 \end{figure}
 
 Another source of formal structures that have been used as the basis for programming
@@ -1982,21 +1987,42 @@ of both programmer and implementor.\endnote{Imperative functional programming}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{fig/upsidedown.jpg}
-\caption{Upside down.}
+\vspace{-1em}
+\includegraphics[width=0.7\textwidth]{fig/upsidedown.jpg}
+\caption{Eisenman's House VI (1975) is generated using a small number of formal operations.}
 \label{fig:upsidedown}
 % https://eisenmanarchitects.com/House-VI-1975
 \end{figure}
 
+The example shown in Figure~\ref{fig:monads} uses monads and the \texttt{do} notation to
+implement a simple program that reads a number of lines from the input and prints them back
+to the user. The example is intentionally chosen to require a number of monadic structures.
+It uses the \texttt{forM} function to iteratively execute function that reads input,
+\texttt{forM\_} to print outputs (a version with underscore ignores the results),
+and it uses three \texttt{do} blocks to sequence imperative operations. In this particular
+example, the formal structure of a monad permeates the entire program. (Contrast the example
+with more recent approach to handling input/output effects based on algebraic effect handlers
+where constructs such as iteration are not affected by the effects.)
 
-The example in Figure~\ref{fig:monads}
-uses monads and the \texttt{do} notation to
+To question the design of monadic input/output, we can compare the computer program design
+generated through a formal structure (monads) with architecture generated through a formal
+structure. Consider the House VI designed by Peter Eisenman:
 
+\begin{quote}
+House VI was in fact the result of the application of a few limited rules
+(displacement, rotation, compression and extension), to a restricted number of
+elements (volume, vertical layers and the nine square grid). All these operations
+produced several diagrams, whose relevance replaced the notions of materiality,
+function, and meaning.\endnote{From Formalism to Weak Form: The Architecture and Philosophy of
+Peter Eisenman, p33}
+\end{quote}
 
-~
-
-important to note that formal structures do not automatically imply good fit!
-
+The consequences of the design methodology are apparent in Figure~\ref{fig:upsidedown}.
+Some of the beams in the house play no structural role, but are present for merely formal
+reasons. This includes the column hanging over a dining table. Another artifact generated
+by the design method is the inverted red staircase, which hints at the fact that the house
+may well continue to function if it was flipped upside down. Rather than achieving a fit between
+the form and the context, the house sends a message:
 
 \begin{quote}
 As annoying as the house was to inhabit, Eisenman was able to constantly
@@ -2004,19 +2030,167 @@ remind the users of the architecture around them and how it affects
 their~lives.\endnote{\url{https://www.archdaily.com/63267/ad-classics-house-vi-peter-eisenman}}
 \end{quote}
 
+The use of monads for input/output in Haskell is certainly not as annoying. After all, the
+authors praised the system for working ``particularly smoothly'' when introducing the idea.
+However, the use of monads as a formal structure to generate library designs in functional
+programming languages has also found its critics, myself included. In ``What we talk about when we
+talk about monads''\endnote{paper} I pointed out that ``there are a number of cases where monads
+were used in an academic paper and their use was later revised or avoided.''
+Interestingly, some of those undesirable uses of monads are not unlike the undesirable effects
+that the use of formal structures generates in Eisenman's House VI.
 
-monads / lambda calculus
+The first example is that of monadic parser combinators.\endnote{cite} Parser combinators
+emerged as a functional and compositional way to construct parsers. When it turned out that
+parsers can match the structure of a monad, most implementations of parser combinators
+started to follow this formal structure. However, the structure implied by monads was often
+not practically necessary---it was the result of formal decision, rather than a decision
+arising from the required functionality. In contrast to parser combinators that were not based
+on monads, monadic parser combinators were also less efficient and had poor error reporting.
+In some way, monadic parser combinators are not unlike the formally appealing, but practically
+unnecessary columns in Eisenman's House IV.
 
-but also debate - create non-harmonious things
+The second example is the use of monads for capturing dataflow computations. As pointed out
+by Dominic Orchard,\endnote{cite} computer scientists initially tried to model dataflow
+computations using the formal structure of a monad. Later work argued that this cannot be done
+and instead proposed to use a formally dual structure of a comonad. Although the desired
+implementation could, to some extent, fit both of the structures, it later turned out that
+other aspects of the model (such as how easy it is to use it in formal reasoning) are
+easier to achieve with the dual structure. What the example suggests is that there are
+unexpected properties of formal structures whose practical implications may remain
+ununderstood. Perhaps Eisenman's House IV would, indeed, work better if it was flipped upside-down,
+as eventually happened with formal models of dataflow computations?
 
+The conclusion we can draw from these examples is the same for architecture and
+for computer science and programming. In the case of modernism, the problem was the difficulty
+of fully understanding the context. In the case of formalism, we instead opt for a design
+methodology taht disregards the context. Formal structures have a great appeal and
+many useful structures can emerge as the result of formal manipulation. But there is no
+guarantee that they will result in a good fit between the form and the context.
 
 % TODO: Also add something about learning from Alexander, as he really meant it
 % (inhabiting as in RPG's writings, egoless / slow software ideas from my blog
 % and also the fact that fit cannot be achieved by using abstract composable parts)
 
-\newpage
-
 \section{Possibility of a Critical Language}
+
+I opened this text with a reference to Christopher Alexander's OOPSLA 1996 keynote where he
+wondered if programmers and computer scientists are willing to be ``guns for hire''.
+He continued his presentations with an invitation:
+
+\begin{quote}
+What I am proposing here is something a little bit different from that. It is a view of
+programming as the natural genetic infrastructure of a living world which you/we are
+capable of creating, managing, making available, and which could then have the result that a
+living structure in our towns, houses, work places, cities, becomes an attainable thing.
+\end{quote}
+
+In the (almost) 30 years since his presentation, software has indeed became a kind of genetic
+infrastructure of a living world, although not always in the most desirable ways---or to use
+Alexander's terminology, the software has not always served us by providing living structures.
+Alexander's lifetime work has been concerned with understanding living structures and finding
+ways of creating them. My own interest in this text is way more~modest.
+
+I think we need a richer critical language for thinking about software. When we critically
+examine software today, we most frequently approach it from one of two perspectives.
+The first perspective is technical. Does the software work as it was intended to? Even if
+most software built today is not developed according to an up-front specification, the technical
+perspective is still concerned with its functionality. In the case of more abstract systems
+like programming languages, we still ask technical questions, such as how effectively they support
+different use cases. The second perspective is social. What is the effect that the software has on
+the society and individuals? In response, much has been written about algorithmic bias, exploitation
+of personal data or the role of social media.\endnote{Weapons of Math Destruction, Algorithms of Oppression,
+The Age of Surveillance Capitalism, Twitter and Tear Gas}
+
+\begin{figure}
+\centering
+\vspace{-1em}
+\includegraphics[width=0.7\textwidth]{fig/ai.png}
+\caption{Research Priorities for Robust and Beneficial Artificial Intelligence: An Open Letter}
+\label{fig:ai}
+% own screenshot
+\end{figure}
+
+I believe that thhe two disconnected perspectives are insufficient for critical thinking about
+software. To put it bluntly, the technical perspective asks the wrong questions, whereas the social
+perspective glosses over too many crucial details. The gap is apparent if we look at the
+2015 open letter ``Research Priorities for Robust and Beneficial Artificial
+Intelligence''\endnote{cite} (Figure~\ref{fig:ai}). The introduction of the letter talks
+about the impact of AI on society and the letter lists multiple social science questions (policy,
+economics, ethics). The computer science priorities are highly technical problems like security,
+control and the classic problem of ``how to prove that a system satisfies certain desired formal
+properties''. Notably absent from the letter is a call for closer integration between the
+two perspectives of looking at the system. What I am interested in is finding ways
+of engaging with the technical structure of software, but not through technical questions.
+
+I have been using architectural theory as an inspiration for ideas on the critical language
+of software---partly because of the existing connection between the disciplines, but also
+because of the rich literature concerned with critical reading of architecture.
+In 1977, Jorge Silvetti described an emerging critical discourse within architectural theory that
+he calls ``criticism from within'' and which complements existing
+approaches:\endnote{Oppositions, p372}
+
+\begin{quote}
+[The] ``realm'' of criticism has traditionally been divided between two opposing modes: one
+that tries to evaluate the degree of ``fitness'' or ```non-fitness'' of a solution
+to a particular architectural question and another that attempts to see both the question and
+that solution as parts of a larger historical, cultural, or ideological process.
+\end{quote}
+
+\begin{figure}
+\centering
+\vspace{-1em}
+\includegraphics[width=0.7\textwidth]{fig/venturi.jpg}
+\caption{Vanna Venturi house (1964). Robert Venturi reintroduces elements traditionally associated
+with houses, but in a minimal form and stripped of their original functions.}
+\label{fig:vanna}
+% Paraphrase of https://www.dezeen.com/2015/08/12/postmodernism-architecture-vanna-venturi-house-philadelphia-robert-venturi-denise-scott-brown/
+% https://commons.wikimedia.org/wiki/File:VVenturi_House_Highsmith.jpeg
+\end{figure}
+
+The two opposing modes of criticism identified by Silvetti are remarkably like the two critical
+ways of looking at software. However, post-modern architecture that emerged in the late 1960s
+also came with a new critical discourse. The new ``criticism from within'' had a range of forms and
+aspects, many of which were discussed in detail by Silvetti in 1977. Those include the idea of
+treating architecture as a language that can be subjected to analysis and manipulation.
+Inspired by Chomsky, we can study the syntax of the language; inspired by French structuralists,
+we can study the systems of signs employed by the architectural language.
+Using figures of classical rhetoric, Silvetti gives examples of buildings that ``all operate
+with known architectural codes, and they all redeploy these codes by effecting some easily
+perceivable changes.''\endnote{Oppositions p376} The changes introduce hyperboles,
+paradoxes, ironies and ellipses (Figure~\ref{fig:vanna}).
+
+
+~
+
+return to language
+operation on codes
+use of architecture itself
+subversion of meaning, irony
+production of new knowledge
+form as a signifying system
+
+~
+
+
+architecture as read/text
+architectural critique as a source of ideas, indirectly also structuralism and post-structuralism in linguistics and philosophy
+
+evaluate facts / technical/evaluative
+
+historical and scholarly
+
+criticism from within
+
+
+double coding
+
+transparency
+
+special scenes
+
+
+-----
+
 
 HOW CAN IT BE DONE
 
@@ -2072,20 +2246,22 @@ monuments / demoscene / esolangs / talks / hackathons
 
 CONCLUSION: PM liberated communicative potential (Jencks) - how to do this for PL?
 
+Also SW parcs and memorials to try formal ideas
+
+
+
 \section{Leftovers}
 
 RANDOM
-loft as a proof that geometric structure can be reused
-(c.f. ice rinks)
+loft as another proof that geometric structure can be reused (c.f. ice rinks)
 
 architecture = concept/intent, function (modernist), structure, technics (19th cent), form
 - each of these is the paradigm of some language!
+(from Eisenman introduction)
 
 grammar of architecture is useful for conceiving project but it is a fiction - Eisenman (Petit, 149)
 
 follow mechanical process (ad absurdum?)
-
-Also SW parcs and memorials to try formal ideas
 
 https://parametric-architecture.com/deconstructing-deconstruction-the-architectural-philosophy-of-peter-eisenman/
 
