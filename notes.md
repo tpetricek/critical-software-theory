@@ -181,3 +181,9 @@ c.f. relationship to cities in Possibility of Absolute architecture
 ## Monuments
 
 * cf. Aureli
+
+## Structure
+
+Role of asserts in code? additional support structures? (like extra beams...)
+but they also suggest something
+double coding? they hint at extra stability of code...
