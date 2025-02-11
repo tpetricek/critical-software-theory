@@ -187,3 +187,8 @@ c.f. relationship to cities in Possibility of Absolute architecture
 Role of asserts in code? additional support structures? (like extra beams...)
 but they also suggest something
 double coding? they hint at extra stability of code...
+
+## Later random notes
+
+complexity and contradiction in C/C++ - how does the specification deal with undefined behaviour?
+(C compiler can assume it never happens - valid C programs do not have undefined behaviour - but there is no way to compile only valid C programs, because encountering undefined behaviour depends on runtime?)
