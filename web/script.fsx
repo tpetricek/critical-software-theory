@@ -13,17 +13,26 @@ type LatexToken =
 let string cs = System.String(Array.ofSeq cs)
 
 let (|Quoted|_|) qo qc cs =
-  let rec loop acc cs =
+  let rec loop acc qocount cs =
     match cs with 
-    | c::cs when c = qc -> Some(List.rev acc, cs)
-    | c::cs -> loop (c::acc) cs
+    | c::cs when c = qc && qocount = 0 -> Some(List.rev acc, cs)
+    | c::cs when c = qc -> loop (c::acc) (qocount - 1) cs
+    | c::cs when c = qo -> loop (c::acc) (qocount + 1) cs
+    | c::cs -> loop (c::acc) qocount cs
     | [] -> None
   match cs with 
   | c::cs when c = qo ->
-      match loop [] cs with 
+      match loop [] 0 cs with 
       | Some(quoted, cs) -> Some(string quoted, cs)
       | _ -> None
   | _ -> None
+
+let (|ZeroOrMore|) f input = 
+  let rec loop acc cs = 
+    match cs with 
+    | c::cs when f c -> loop (c::acc) cs
+    | _ -> string (List.rev acc), cs
+  loop [] input
 
 let (|OneOrMore|_|) f input = 
   let rec loop acc cs = 
@@ -39,10 +48,19 @@ let rec tokenize acc cs = seq {
   let notNewLine c = c <> '\n' && c <> '\r'
   let spaceOrTab c = c = ' ' || c = '\t'
   let currentLiteral () = 
-    if List.isEmpty acc then [] 
-    else [ Literal(string(List.rev acc)) ]
+    let acc = string(List.rev acc)
+    if String.IsNullOrWhiteSpace acc then [] 
+    else [ Literal(acc) ]
 
   match cs with 
+  | '\\'::'\\'::Quoted '[' ']' (_, cs) ->
+      yield! tokenize acc cs
+  | '\\'::(('_' | '#') as c)::cs ->
+      yield! tokenize (c::acc) cs
+  | '~'::cs ->
+      yield! tokenize (List.rev(List.ofSeq "&nbsp;") @ acc) cs
+
+  | '\\'::OneOrMore letterOrAst (cmd, Quoted '{' '}' (args, Quoted '[' ']' (opts, cs))) 
   | '\\'::OneOrMore letterOrAst (cmd, Quoted '[' ']' (opts, Quoted '{' '}' (args, cs))) ->
       yield! currentLiteral ()
       yield Command(cmd, Some opts, Some args)
@@ -60,12 +78,19 @@ let rec tokenize acc cs = seq {
       yield! currentLiteral ()
       yield ParagraphBreak
       yield! tokenize [] cs
-  | '%'::OneOrMore notNewLine (_, cs) ->
+  | '%'::ZeroOrMore notNewLine (_, cs) ->
       yield! tokenize acc cs
   | c::cs -> 
       yield! tokenize (c::acc) cs
   | [] ->
       yield! currentLiteral () }
+
+let formatToken = function
+  | ParagraphBreak -> "\r\n\r\n"
+  | Literal s -> s
+  | Command(name, opts, cmd) -> 
+      "\\" + name + (match opts with Some opts -> "[" + opts + "]" | _ -> "")
+        + (match cmd with Some cmd -> "{" + cmd + "}" | _ -> "")
 
 // ----------------------------------------------------------------------------
 // LaTeX "parser"
@@ -74,6 +99,7 @@ let rec tokenize acc cs = seq {
 type Span = 
   | Endnote of string
   | Span of string
+  | Teletype of string
   | Reference of string
 
 type Paragraph = 
@@ -81,7 +107,10 @@ type Paragraph =
   | Paragraph of spans:Span list
   | Image of source:string
   | Caption of label:string option * caption:string
-  | Environment of name:string * body:Paragraph list
+  | Figure of body:Paragraph list
+  | Quote of body:Paragraph list
+  | Listing of language:string option * body:string
+  | InlineBlock of html:string 
 
 module List = 
   let splitUsing f xs = 
@@ -95,8 +124,14 @@ module List =
 let (|WhiteSpace|_|) s = 
   if String.IsNullOrWhiteSpace s then Some() else None
 
-let literalToSpan (str:string) = 
-  Span(str.Replace("---", "&#8212;").Replace("``", "&#8220;").Replace("''", "&#8221;"))
+let literalToHtml (str:string) = 
+  str.Replace("---", "&#8212;").Replace("``", "&#8220;").Replace("''", "&#8221;")
+
+let parseOptions (opts:string option) = 
+  match opts with 
+  | Some opts -> opts.Split(",") |> Seq.choose (fun kv -> 
+      match kv.Split("=") with [|k;v|] ->Some (k, v) | _ -> None) |> dict
+  | None -> dict []
 
 let rec parse acc ts = seq {
   let currentParagraph () = 
@@ -104,13 +139,33 @@ let rec parse acc ts = seq {
     else [ Paragraph(List.rev acc) ]
 
   match ts with 
-  // Environments
-  | Command("begin", _, Some env)::ts ->
+  // Environments - code listing (body is text)
+  | Command("begin", opts, Some(("lstlisting" | "verbatim") as env))::ts ->
+      yield! currentParagraph()
+      let opts = parseOptions opts
+      let lang = if opts.ContainsKey "language" then Some(opts.["language"]) else None
+      let tse, ts = List.splitUsing (function Command("end", _, Some e) -> e = env | _ -> false) ts
+      let ts = if ts = [] then failwithf "Missing: \end{%s}" env else List.tail ts
+      yield Listing(lang, String.concat "" (Seq.map formatToken tse))
+      yield! parse [] ts
+
+  // Environments - minipage, addmargin (ignore)
+  | Command("begin", opts, Some(("minipage" | "tiny" | "addmargin") as env))::ts ->
       yield! currentParagraph()
       let tse, ts = List.splitUsing (function Command("end", _, Some e) -> e = env | _ -> false) ts
       let ts = if ts = [] then failwithf "Missing: \end{%s}" env else List.tail ts
-      yield Environment(env, List.ofSeq(parse [] tse))
+      yield! parse [] (tse @ ts)
+
+  // Environments - quote, figure - body is latex
+  | Command("begin", opts, Some(env))::ts ->
+      yield! currentParagraph()
+      let tse, ts = List.splitUsing (function Command("end", _, Some e) -> e = env | _ -> false) ts
+      let ts = if ts = [] then failwithf "Missing: \end{%s}" env else List.tail ts
+      if env = "figure" then yield Figure(List.ofSeq(parse [] tse))
+      elif env = "quote" then yield Quote(List.ofSeq(parse [] tse))
+      else failwith $"Unsupported environment: {env}"
       yield! parse [] ts
+
 
   // Paragraph-level entities
   | Command(("chapter"|"chapter*"), _, Some heading)::ts -> 
@@ -128,7 +183,7 @@ let rec parse acc ts = seq {
   | Command("caption", _, Some cap)::Literal(WhiteSpace _)::Command("label", _, Some lbl)::ts 
   | Command("caption", _, Some cap)::Command("label", _, Some lbl)::ts ->
       yield! currentParagraph()
-      yield Caption(Some lbl, cap)
+      yield Caption(Some lbl, literalToHtml cap)
       yield! parse [] ts
   | Command("caption", _, Some cap)::ts ->
       yield! currentParagraph()
@@ -142,18 +197,32 @@ let rec parse acc ts = seq {
       yield! parse (Span "&#8230;"::acc) ts
   | Command("endnote", None, Some endnote)::ts ->
       yield! parse (Endnote endnote::acc) ts
+  | Command("texttt", None, Some body)::ts ->
+      let body = body.Replace("\\_", "_")
+      yield! parse (Teletype body::acc) ts
   
-  // Whitespace
-  | Command(("vspace" | "quad" | "newpage"), _, _)::ts ->
+  // Whitespace & other ignored
+  | Command(("vspace" | "quad" | "newpage" | "raisebox" | "noindent"), _, _)::ts ->
+      yield! parse acc ts
+  | Command(("centering" | "raggedleft" | "theendnotes"), _, _)::ts ->
       yield! parse acc ts
 
-  | Command(c, opts, arg)::_ ->
-      failwithf "Unsupported command: %s[%A]{%A}" c opts arg
+  // Ignored but wrapping things
+  | Command("boxed", None, Some body)::ts ->
+      let ts = List.ofSeq (tokenize [] (List.ofSeq body)) @ ts
+      yield! parse acc ts
+ 
+  // Ignored - keep as latex
+  | Command(("textwidth"), _, _)::ts ->
+      yield! parse (Span "\textwidth"::acc) ts
+
+  | Command(c, opts, arg)::cs ->
+      failwithf "Unsupported command: %s[%A]{%A}\nBefore: %A" c opts arg (List.truncate 10 cs)
   | ParagraphBreak::ts -> 
       yield! currentParagraph()
       yield! parse [] ts
   | Literal(s)::ts ->
-      yield! parse (literalToSpan s::acc) ts 
+      yield! parse (Span(literalToHtml s)::acc) ts 
   | [] -> 
       yield! currentParagraph() }
 
@@ -161,36 +230,87 @@ let rec parse acc ts = seq {
 // HTML formatting
 // ----------------------------------------------------------------------------
 
-let formatSpans spans = seq { 
+type FormattingContext = 
+  { NextFootnote : unit -> int }
+
+let formatSpans fmt spans = seq { 
   for s in spans do 
     match s with 
-    | Endnote(s) -> "[^]"
+    | Teletype(s) -> $"<code>{s}</code>"
+    | Endnote(s) -> 
+        let note = fmt.NextFootnote()
+        $"<sup class='noteref'><a href='#note_{note}'>{note}</a></sup>" + 
+        $"<a class='note' name='note_{note}'><sup>{note}</sup> {s}</a>"
     | Reference(ref) -> "[#]"
     | Span(s) -> s }
 
-let rec formatPars pars = seq {
+let rec formatPars fmt pars = seq {
   for p in pars do
     match p with 
+    | InlineBlock(h) -> 
+        yield h
     | Heading(n, h) -> 
-        yield $"<h{n}>{h}</h{n}>\n"
+        let hname = h.ToLower().Replace(" ", "_")
+        yield $"<h{n}><a name='{hname}'>{h}</a></h{n}>\n"
     | Caption(lbl, cap) ->  
         yield $"<p><strong>{cap}</strong></p>\n"
     | Image(src) ->
-        yield $"<img src=\"{src}\">"
+        yield $"<img src=\"{src}\">\n"
     | Paragraph(spans) ->   
         yield "<p>"
-        yield! formatSpans spans
-        yield "</p>\n"
-    | Environment("figure", pars) ->
+        yield! formatSpans fmt spans
+        yield "</p>\n\n"
+    | Figure(pars) ->
         yield "<div class=\"figure\">\n"
-        yield! formatPars pars    
+        yield! formatPars fmt pars    
         yield "</div>\n"
-    | Environment("quote", pars) ->
+    | Quote(pars) ->
         yield "\n<blockquote>\n"
-        yield! formatPars pars
+        yield! formatPars fmt pars
         yield "</blockquote>\n\n" 
-    | Environment(env, _) ->
-        failwith $"Unsupported environment: {env}" }
+    | Listing(lang, body) ->
+        match lang with 
+        | Some lang -> yield $"\n<pre lang=\{lang}\">\n" 
+        | None -> yield "\n<pre>\n"
+        yield System.Web.HttpUtility.HtmlEncode(body)
+        yield "</pre>\n\n" }
+
+let formatGroups fmt groups = seq {
+  for pars in groups do
+    yield "\n<section>\n"
+    yield! formatPars fmt pars
+    yield "</section>\n\n"
+  }
+
+let groupPars pars = 
+  let rec loop acc pars = seq {
+    let currentGroup() = 
+      if List.isEmpty acc then []
+      else [ List.rev acc ]
+    match pars with 
+    | ((Heading(1, _) | Figure _) as p)::pars ->
+        yield! currentGroup ()
+        yield [p]
+        yield! loop [] pars 
+    | (Heading _ as p)::pars ->  
+        yield! currentGroup ()
+        yield! loop [p] pars
+    | p::pars ->
+        yield! loop (p::acc) pars 
+    | [] ->
+        yield! currentGroup () }
+  loop [] pars
+
+let generateToc doc = 
+  [ for p in doc do
+      match p with 
+      | Heading(_, h) ->
+          let hname = h.ToLower().Replace(" ", "_")
+          $"  <li><a href='#{hname}'>{h}</a></li>\n"
+      | _ -> () ]
+  |> String.concat ""
+  |> sprintf "\n<ol>\n%s<ol>\n"
+  |> InlineBlock
 
 // ----------------------------------------------------------------------------
 // Main
@@ -199,18 +319,30 @@ let rec formatPars pars = seq {
 let output = Path.Combine(__SOURCE_DIRECTORY__, "output")
 let figOutput = Path.Combine(__SOURCE_DIRECTORY__, "output", "fig")
 let figSource = Path.Combine(__SOURCE_DIRECTORY__, "..", "fig")
-if Directory.Exists output then Directory.Delete(output, true)
 Directory.CreateDirectory(output)
+if Directory.Exists figOutput then try Directory.Delete(figOutput, true) with _ -> ()
 Directory.CreateDirectory(figOutput)
 for f in Directory.GetFiles(figSource) do File.Copy(f, f.Replace(figSource, figOutput))
 
 let latex = Path.Combine(__SOURCE_DIRECTORY__, "..", "chapters", "introduction.tex")
 let template = Path.Combine(__SOURCE_DIRECTORY__, "template.html")
+let header = Path.Combine(__SOURCE_DIRECTORY__, "header.html")
 let index = Path.Combine(__SOURCE_DIRECTORY__, "output", "index.html")
 
-let chars = File.ReadAllText(latex).[0 .. 10000] 
+let counter() = 
+  let mutable n = 0
+  fun () -> n <- n + 1; n
+
+let fmt = { NextFootnote = counter() }
+let chars = File.ReadAllText(latex)
 let tokens = tokenize [] (List.ofSeq chars) |> List.ofSeq
 let doc = parse [] tokens |> List.ofSeq
-let html = doc |> formatPars |> String.concat ""
+let groups = 
+  let groups = doc |> groupPars |> List.ofSeq
+  let toc = doc |> Seq.tail |> generateToc
+  let head = InlineBlock(File.ReadAllText(header))
+  (List.head groups @ [ head; toc ]) :: (List.tail groups)
+
+let html = groups |> formatGroups fmt |> String.concat ""
 File.WriteAllText(index, File.ReadAllText(template).Replace("{{content}}", html))
 
