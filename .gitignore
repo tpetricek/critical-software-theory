@@ -2,5 +2,7 @@
 *.ent
 *.log
 *.out
+*.bbl
+*.blg
 main.pdf
 web/output

@@ -341,7 +341,7 @@ let groups =
   let groups = doc |> groupPars |> List.ofSeq
   let toc = doc |> Seq.tail |> generateToc
   let head = InlineBlock(File.ReadAllText(header))
-  (List.head groups @ [ head; toc ]) :: (List.tail groups)
+  [ head; toc ] :: (List.tail groups)
 
 let html = groups |> formatGroups fmt |> String.concat ""
 File.WriteAllText(index, File.ReadAllText(template).Replace("{{content}}", html))

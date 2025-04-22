@@ -84,8 +84,8 @@ let ps =
 
 updateTex ()
 Process.Start(ps) |> ignore
-//updateBib ()
+updateBib ()
 let f1 = watchTex ()
-//let f2 = watchBib ()
+let f2 = watchBib ()
 
 System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite)

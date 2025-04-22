@@ -1,6 +1,7 @@
 * { margin:0px; padding:0px; }
 body { background:#f0f0f0; }
-h1 { font:400 40pt 'EB Garamond', serif; color:rgb(198, 7, 7); margin:10px 0px 20px 0px; }
+h1 { font:400 40pt 'EB Garamond', serif; color:black; margin:10px 0px 60px 0px; line-height:1.1em; }
+h1 em { color:rgb(198, 7, 7); font-style: normal; white-space:nowrap; }
 h2 { font:400 30pt 'EB Garamond', serif; color:rgb(198, 7, 7); margin:10px 0px 20px 0px; }
 p { color:#404040; font:400 13pt 'Manrope', sans-serif; margin:10px 0px; line-height:1.6em; }
 h3 { color:#404040; font:700 14pt 'Manrope', sans-serif; margin:30px 0px 0px 0px;  }
@@ -11,8 +12,8 @@ ol { margin:10px 0px 10px 25px;}
 ol a, ol a:visited { color:rgb(198, 7, 7); text-decoration:none; }
 ol a:active, ol a:hover { text-decoration:underline; }
 
-article { max-width:900px; margin-left:50px; }
-section { background:white; margin:50px 0px; padding:50px; }
+article { width:900px; margin-left:50px; margin-top:50px; }
+section { background:white; margin:0px 0px 50px 0px; padding:50px; }
 blockquote { margin:20px 30px; }
 blockquote p { font-style:italic; }
 img { max-height:300px; }
@@ -20,11 +21,31 @@ div.figure { width:calc(100vw - 100px); background:white; margin:50px 0px 50px; 
 
 sup.noteref { vertical-align: baseline; position: relative; top: -0.5em; }
 sup.noteref a { color:#a0a0a0; font-weight:600; font-size:10pt; text-decoration:none; }
-a.note { position:absolute; left:1000px; font-weight:600; font-size:11pt; color:#808080; }
-a.note sup { color:#a0a0a0; font-weight:600; font-size:10pt; text-decoration:none; }
 
-.sidenote { position:absolute; left:1000px; font-size:11pt; color:#808080; max-width:400px; }
+a.note, .sidenote { position:absolute; left:1000px; font-weight:600; max-width:400px; font-size:11pt; color:#a0a0a0; line-height:1.4em; }
+a.note sup { color:#a0a0a0; font-weight:600; font-size:10pt; text-decoration:none; position:absolute; left:-38px; width:30px; display:inline-block; text-align:right; }
 .sidenote p { color:#a0a0a0; font-weight:600; font-size:11pt; }
 .sidenote p a { color:#808080; font-weight:300; text-decoration:none; }
 .sidenote p a:hover, .sidenote p a:active { text-decoration:underline; }
 .sidenote i { margin-right:5px; }
+.sidenote img { max-height:none; max-width:80%; margin:0px 12% 0px 8%; filter: grayscale(1); transition: all 0.5s ease; }
+.sidenote img:hover { max-height:none; max-width:80%; margin:0px 12% 0px 8%; filter: grayscale(0); }
+
+@media only screen and (max-width:1450px) {
+  article { width:700px; margin-left:40px; margin-top:40px; }
+  a.note, .sidenote { left:780px; max-width:350px; }
+}
+@media only screen and (max-width:1160px) {
+  article { width:600px; margin-left:20px; margin-top:20px; }
+  a.note, .sidenote { left:650px; max-width:300px; }
+}
+@media only screen and (max-width:970px) {
+  article { margin-left:10px; margin-top:10px; margin-right:10px; width:calc(100% - 20px); }
+  a.note, .sidenote { display:none; }
+}
+@media only screen and (max-width:600px) {
+  h1 { font-size:34pt; }
+  h1 em { white-space:initial; }
+  article { margin-left:0px; margin-right:0px; margin-top:0px; width:100%; }
+  section { padding:10px; }
+}

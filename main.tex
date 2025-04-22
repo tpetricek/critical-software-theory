@@ -22,6 +22,8 @@
 \usepackage{hyperref}
 \usepackage{hypcap}
 \usepackage{scrextend} % addmargin
+\usepackage{natbib}
+\setcitestyle{round}
 
 \urlstyle{sf}
 \widowpenalties 2 10000 0
@@ -122,7 +124,7 @@
 }
 
 \begin{document}
-\title{\Huge \textbf{Critical Reading of Software}\\~\\}
+\title{\Huge \textbf{Critical Architecture/Software Theory}\\~\\}
 \author{Tomas Petricek}
 \maketitle
 
@@ -138,5 +140,8 @@
 
 
 \include{chapters/introduction}
+
+\bibliographystyle{plainnat}
+\bibliography{main}
 
 \end{document}

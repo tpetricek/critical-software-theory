@@ -1,11 +1,14 @@
-\chapter*{Critical Language for Software}
+%\chapter*{Critical Language for Software}
 
 The name of the architect Christopher Alexander is perhaps better known in programming
 circles than among architects, so he makes for the perfect opening of a text that aims
 to find new links between the world of architecture and the world of software. But let
 me be clear that I reference Alexander mainly to highlight a question that he posed about
 the software practice, rather than to draw inspiration for better software design from his
-work, a task already done by others.\endnote{patterns, RPG, Steenson}
+work, a task already done by others.\endnote{The idea of design patterns has been adapted
+for software by \citet{gamma-1994-patterns}, while \citet{rpg-1996-patterns} explores the
+link at a more fundamental level. \citet{steenson-2017-intelligence} discusses the
+connection between architecture and software more broadly.}
 
 The question I want to refer to was raied by Alexander in a keynote that he delivered in
 1996 at the annual ACM Conference on Object-Oriented Programs, Systems, Languages and
@@ -29,12 +32,12 @@ this---software design---is going''. In a ``very direct and blunt'' comment, he 
 It could be thought that the technical way in which you [computer scientists] currently look at
 programming is almost as if you were willing to be ``guns for hire.'' In other words, you are the
 technicians. You know how to make the programs work. ``Tell us what to do daddy, and we'll do it.''
-That is the worm in the apple.
+That is the worm in the apple.\endnote{\citet{alexander-1999-origins}}
 \end{quote}
-% https://www.patternlanguage.com/archive/ieee.html
 
 One could conclude that computer scientists and programmers share their predicament with architects
-who, as argued by Charles Jencks\endnote{p26} ``have little power, [and] are not in any better
+who, as argued by Charles Jencks\endnote{\citet[p.26]{jencks-2012-postmodernism}}
+``have little power, [and] are not in any better
 position to command what is built.'' Perhaps like architects, computer scientists and programmers
 being ``fairly low in the chain of command and needing jobs, are prone to compromise with the
 state and the establishment.''
@@ -58,7 +61,8 @@ and not a piece of software.
 Although I started with Alexander's comment and I share his belief that programmers and computer
 scientists should not accept the role of ``guns for hire,'' my thinking follows a different
 route than that suggested by Alexander---one that would likely not make Christopher Alexander
-himself very happy.\endnote{Alexander Eisenmann debate \url{https://arahovsepyan.com/eisenmanalexander}}
+himself very happy.\endnote{Alexander expressed disagreement with some of the ideas that I take
+inspiration from clearly in the 1982 debate with Peter Eisenman \citep{alexander-1983-debate}.}
 Rather than seeking a way of building that achieves a living structure, I turn to debates
 on architecture that emerged from post-modern critical architecture and debates about it.
 
@@ -67,14 +71,17 @@ structures'' in the world, I do not think we can achieve this without first havi
 language that lets us reflect on our work, criticise existing approaches, deconstruct our creations
 and look for alternative arrangements.
 
-In other words, I believe there is a value in exploring disharmony\endnote{Agreeing with Eisenmann
-in the debate} and in using a critical language of architecture---or in my case of software---to
+In other words, I believe there is a value in exploring disharmony\endnote{In the debate
+\citep{alexander-1983-debate}, Alexander argues that architects are ``entrusted with the creation
+of (\ldots) harmony'' whereas Eisenman points out that ``disharmony might be part of the cosmology
+that we exist in''. I agree with Eisenman that it is worth to explore this disharmony.}
+and in using a critical language of architecture---or in my case of software---to
 criticise the state of the discipline and imagine new ways of thinking and new ways in which
 software can support social structures. Although I mainly look to writing on post-modern ar
 chitecture for sources of inspiration, the idea of using buildings to question established order
 is by no means new. We can trace similar ideas to the rise of modernism in Europe following
 the First World War when some architects ``overwhelemed by the nightmare of industrialization
-(...) briefly speculate on alternative condition'':\endnote{Oppositions -- p52, p55}
+(...) briefly speculate on alternative condition'':\endnote{\citet[p.55]{frampton-1998-crises}}
 
 \begin{quote}
 It is not the crazy caprice of a poet that glass architecture will bring a new culture.
@@ -114,29 +121,36 @@ To illustrate some of the ways through which architects use architecture to comm
 with the most basic structural element of classical architecture, the column. Figure~\ref{fig:columns}
 shows several uses of columns, starting from the ancient Parthenon built in Athens in 5th century
 BC (bottom left) followed by four examples that include a variety of references to the classical
-column.\endnote{Idea from Oppositions p377, See also Korman ``The Architecture of the Facade'' -
-for more on columns}
+column.\endnote{The discussion on columns is inspired by \citet{silvetti-1998-shadows} and
+also the review by \citet{korman-2023-facade}.}
 
 \newpage
 
 Neoclassical architecture, which gradually grew in prominence in the late 18th century, looks
 back to the Classical past. It sees it as a source of pure geometric order with ideal proportions
-and symmetry. Such references to the ancients should not be unexpected. At the start of the 17th
-century, Aristotle and other ancient philosophers were seen as the source of truth that was partly
-lost and needs to be recovered, but that was already fully known to the ancients.\endnote{Wootton}
-The scientific revolution of the 17th century gradually changed perspective on the ancients in what
-was becoming experimental science, but it should not be a surpirse that architects of the 18th century
-were still looking back to ancient structures that were becoming rediscovered and better understood
-at the time. Neoclassical architecture remained influential after the 18th century, but its meaning
+and symmetry. The return to the architecture of the antiquity started during the Renaissance
+period in the 15th and 16th century. This included the rediscovery of the Ten Books on Architecture
+(``De architectura'') by Roman architect Vitruvius and Andrea Palladio's architecture that aimed
+to design according to ideal proportions, inspired by his studies of antiquity. In the 17th and
+18th century, Palladio's study of symmetry and formal classical architecture inspired a new
+interpretation of classical architecture and also one of the styles of neoclassical
+architecture.\endnote{\citet{aureli-2011-absolute}. Before the scientific revolution,
+ancient philosophers were seen as the source of truth that was partly lost but was already
+fully known to the ancients \citep{wootton-2015-invention}. The focus on classical architecture
+in the 16th century is thus not unexpected. The interpretation changed gradually in the 17th
+century, adding early empirical studies of ancient ruins, but the interest remained.}
+Neoclassical architecture remained influential after the 18th century, but its meaning
 slowly shifted. It turned from an attempt to rediscover and recreate simple, purely geometrical
 structures to an idealized style that emphasises tradition. The use of the style for many US federal
-buildings is thus a reference to the values that the style encompasses.\endnote{Also conservative
-``Executive Order on Promoting Beautiful Federal Civic Architecture'' -- Trump's administration (2020)}
+buildings is thus a reference to the values that the style encompasses.\endnote{The conservative
+connotations of neoclassical architecture can be also illustrated by the
+``Executive Order on Promoting Beautiful Federal Civic Architecture'' issued by the Trump
+administration \citep{trump-2020-beautiful}.}
 
 The modernist Villa Savoye designed by Le Corbusier also looks back to the Classical past,
 but it does so in a different way. Rather than directly copying the style and order of the
 ancient Greek temples, the building is a reinterpretation of the ideas of a Greek
-temple.\endnote{Unwin - Twenty-Five Buildings Every Architect Should Understand}
+temple.\endnote{\citet{unwin-2024-twentyfive}}
 It reimagines the ideal structure of Greek temple based on geometric principles (using the golden
 ratio), but replaces ancient Greek columns with minimalistic modernist pilotis. Following the
 modernist focus on function, Le Corbusier's design uses pilotis to give prominence to the
@@ -149,10 +163,10 @@ of the modernist manifesto ``Ornament and Crime'', first presented as a lecture 
 for the Chicago Tribune headquarters competition in 1922, Loos made yet another reference to the
 ancient Greek temple and shaped the entire building as a giant Doric column.  Loos himself did not
 view the column in his design as ornamental and instead saw it as supporting the public nature of
-the building with appropriate symbolism.\endnote{Krul - Adolf Loos and the Doric Order}
+the building with appropriate symbolism.\endnote{\citet{krul-2011-doric}}
 The structure of the building itself here becomes the symbol in a way that is reminiscent
 of later post-modernist works where construction patterns and material textures themselves become
-ornament.\endnote{Jencks, p183} Despite being rooted in the modernist thinking, the Chicago Tribune
+ornament.\endnote{\citet[p.183]{jencks-2012-postmodernism}} Despite being rooted in the modernist thinking, the Chicago Tribune
 Tower project became an inspiration for later post-modern architects who make, more or less subtle,
 historical references in an ironic way. They will include columns in their buildings to indicate
 that they recognize being a part of architectural culture and tradition, even if they no longer
@@ -167,7 +181,7 @@ ironical forms of columns. One was a bushy tree cut into the shape of a column, 
 a scaled-down version of Loos' Chicago Tribune Tower. The entrance into the exhibition was under
 a hanging fragment of a column, which clearly lost its original structural function, but gained
 a different function as an exhibition entrance. Here, the ironical use of the architectural
-language is direct and understandable.\endnote{Branscombe - Hans Hollein and Postmodernism}
+language is direct and understandable.\endnote{\citet{branscome-2020-hollein}}
 
 Hollein's entry addressed the theme of the Biennale, ``The Presence of the Past'' in a way that
 is funny and ironic, but sends a clear message about history and continuity of architecture. It
@@ -184,7 +198,7 @@ Robert Venturi in 1977. The extension itself is based on an idea that Venturi re
 the ``decorated shed''. The basic structure and spatial disposition of the building itself is
 simple and serves its function which was, in part, to provide more storage space.
 Any symbolic, cultural and aesthetic meaning is provided ``by modifying the basic shell by means
-of design decisions of a second order.''\endnote{Oppositions, p182} One such second-order
+of design decisions of a second order.''\endnote{\citet[p.182]{colquhoun-1998-sign}} One such second-order
 decision is the addition of isolated iconic elements, such as the mock Ionic column that
 marks the building as cultural institution. In a way, the column serves similar role as the
 neoclassical architecture of the US National Archives, but is here added merely as an ironic
@@ -217,26 +231,30 @@ create new software artifacts that express critical points about software.
 
 In other words, can we follow post-modern architects and embed criticism as a first-class
 element in software practice, rather than leaving it to a second-class (and largely optional)
-critical writing?\endnote{Oppositions 377, also Venturi introduction} We can also look to
+critical writing?\endnote{\citet[p.13]{venturi-1977-complexity} writes as an ``architect who
+employs criticism rather than a critic'', while \citet[p.377]{silvetti-1998-shadows} describes
+a mode of criticism he calls ``criticism from within''.} We can also look to
 post-modern architects for initial ideas of what such critical software can say. The
 architectural style known as eclecticism makes funny references such as Hans Hollein who
 decorated his Austrian Travel Agency office with metalic palm trees and broken Greek
-column.\endnote{Jencks, p56} The appeal of the style is not just its straightforward humour,
+column.\endnote{\citet[p.56]{jencks-2012-postmodernism}} The appeal of the style is not just its straightforward humour,
 but the fact that it is understandable and can communicate with wider audience. Similarly,
 post-modern architects have used contextualism to highlight important characteristics of the
 environment they work in or use references to suggest alternative social organization.
 
-Looking at existing software practices, we can imagine how the above arhictectural ideas
+Looking at existing software practices, we can imagine how the above architectural ideas
 can apply to basic structural elements from which software is built. One such element may
-be the data structures around which software is structured.\endnote{ref Abstracting craft p96;
-ref Joel - the other part of the basic structure is how change is described} Data structures
+be the data structures around which software is structured.\endnote{As \citet[p.96]{mccullough-1996-craft}
+points out, ``data structures characterize software''. As noted by \citet{jakubovic-2022-ladder},
+another element is how change to the state is specified.} Data structures
 in software are arguably even more fundamental than columns in architecture, because any
 software that works with data needs to store the data in some way. The limitation of this
 metaphor is that, unlike columns which are typically visible, data structures are typically
 hidden from the end-user. There also is no singular classical model of data structures,
 although a number of models fit a similar role. These include the relational model of databases,
 flat memory model of low-level programming languages and data types that model data as collections
-of nested records.\endnote{Memory models blog}
+of nested records.\endnote{Memory models that underlie different programming languages are
+discussed by \citet{sitaker-2016-models}.}
 
 We can use the architectural metaphor to talk about the differnt kinds of classical models
 of data structures. Whereas the relatively expressive language of the relational model or
@@ -268,7 +286,7 @@ class-based object-oriented abstractions as their basic data structure do not do
 just for practical, but also for symbolical reasons. TypeScript serves to illustrate this
 again. One of the first books on the language claims that ``TypeScript [brings] a level of
 maintainable structure to JavaScript development through its class and module
-features.''\endnote{Dan Maharry, TypeScript Revealed, 2013} Written in the same year when
+features.''\endnote{\citet{maharry-2013-typescript}} Written in the same year when
 the language was released, the claim could not rely on empirical experience with the language,
 but mainly on the symbolic associations of the data structure.
 
@@ -298,7 +316,7 @@ conceived by Charles Petzold in an April Fool's post on 1 April 2006.}
 For my last example based on a reference to an existing artefact, I want to show that
 data structures have already been used to make critical ironical statements. The April Fool's
 post written by Charles Petzold in 2006 introducing the ``C\# Application Markup Language''
-is a illustration.\endnote{\url{http://www.charlespetzold.com/etc/CSAML.html}}
+is a illustration.\endnote{\citet{petzold-2006-csaml}}
 The post introduces a new notation that encodes programs written in the C\# language
 using XML (Figure~\ref{fig:csaml}). The post can be seen as an ironical work of contextualism.
 The post was published in the heyday of the XML format when Microsoft released multiple
@@ -2173,6 +2191,7 @@ that highlights one of those aspects of the system it comments on.
 
 \begin{figure}
 \centering
+\vspace{-1em}
 \includegraphics[width=0.7\textwidth]{fig/stuttgart.jpg}
 \caption{Addition to Neue Staatsgalerie Stuttgart, James Stirling (1984)}
 \label{fig:stuttgart}
@@ -2253,7 +2272,7 @@ Perhaps the same double coding mechanism can be used intentionally and in a bene
 
 \begin{figure}
 \centering
-\vspace{-1em}
+\vspace{-2em}
 \begin{minipage}[t]{.5\textwidth}%
 \begin{tiny}
 \begin{verbatim}
