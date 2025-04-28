@@ -32,6 +32,23 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="style.css" rel="stylesheet">
+  <script type="text/javascript">
+    /// If footnotes on the margin overlap, move them a bit to make them fit nicely
+    function moveNotes() {
+      var lasty = 0;
+      for(var n of document.querySelectorAll("a.note")) 
+        n.style = "margin-top: 0px";
+      for(var n of document.querySelectorAll("a.note")) {
+        var rect = n.getBoundingClientRect();
+        var nowy = rect.y + window.scrollY;
+        if (nowy < lasty) n.style = "margin-top:" + Math.round(lasty - nowy) + "px";
+        rect = n.getBoundingClientRect();
+        lasty = rect.y + window.scrollY + rect.height + 20;
+      }
+    }
+    window.onload = moveNotes;
+    window.onresize = moveNotes;
+  </script>
 </head>
 <body>
   <article>

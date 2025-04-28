@@ -31,6 +31,11 @@ a.note sup { color:#a0a0a0; font-weight:600; font-size:10pt; text-decoration:non
 .sidenote img { max-height:none; max-width:80%; margin:0px 12% 0px 8%; filter: grayscale(1); transition: all 0.5s ease; }
 .sidenote img:hover { max-height:none; max-width:80%; margin:0px 12% 0px 8%; filter: grayscale(0); }
 
+.pub { margin-left:25px; font-weight:200; }
+.pub .author { font-weight:400; }
+.pub .title { font-weight:600; }
+.pub a[href], .pub a:visited { color:rgb(198, 7, 7); text-decoration:none; }
+
 @media only screen and (max-width:1450px) {
   article { width:700px; margin-left:40px; margin-top:40px; }
   a.note, .sidenote { left:780px; max-width:350px; }

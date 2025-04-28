@@ -97,10 +97,11 @@ let formatToken = function
 // ----------------------------------------------------------------------------
 
 type Span = 
-  | Endnote of string
+  | Endnote of Span list
   | Span of string
   | Teletype of string
   | Reference of string
+  | Cite of parenthesize:bool * page:string option * string
 
 type Paragraph = 
   | Heading of level:int * heading:string
@@ -193,9 +194,15 @@ let rec parse acc ts = seq {
   // Span-level entities
   | Command("ref", None, Some ref)::ts ->
       yield! parse (Reference ref::acc) ts  
+  | Command("citet", pg, Some cite)::ts ->
+      yield! parse (Cite(false, pg, cite)::acc) ts  
+  | Command("citep", pg, Some cite)::ts ->
+      yield! parse (Cite(true, pg, cite)::acc) ts  
   | Command("ldots", None, None)::ts ->
       yield! parse (Span "&#8230;"::acc) ts
   | Command("endnote", None, Some endnote)::ts ->
+      let endnote = parse [] (List.ofSeq (tokenize [] (List.ofSeq endnote))) |> List.ofSeq
+      let endnote = match endnote with [ Paragraph p ] -> p | _ -> failwith "endnote - Expected single paragraph"
       yield! parse (Endnote endnote::acc) ts
   | Command("texttt", None, Some body)::ts ->
       let body = body.Replace("\\_", "_")
@@ -233,12 +240,17 @@ let rec parse acc ts = seq {
 type FormattingContext = 
   { NextFootnote : unit -> int }
 
-let formatSpans fmt spans = seq { 
+let rec formatSpans fmt spans = seq { 
   for s in spans do 
     match s with 
     | Teletype(s) -> $"<code>{s}</code>"
+    | Cite(true, Some pg, cite) -> $"({cite}, {pg})"
+    | Cite(false, Some pg, cite) -> $"{cite} (?, {pg})"
+    | Cite(true, None, cite) -> $"({cite})"
+    | Cite(false, None, cite) -> $"{cite} (?)"
     | Endnote(s) -> 
         let note = fmt.NextFootnote()
+        let s = String.concat "" (formatSpans fmt s)
         $"<sup class='noteref'><a href='#note_{note}'>{note}</a></sup>" + 
         $"<a class='note' name='note_{note}'><sup>{note}</sup> {s}</a>"
     | Reference(ref) -> "[#]"
@@ -307,10 +319,120 @@ let generateToc doc =
       | Heading(_, h) ->
           let hname = h.ToLower().Replace(" ", "_")
           $"  <li><a href='#{hname}'>{h}</a></li>\n"
-      | _ -> () ]
+      | _ -> () 
+    "  <li><a href='#references'>References</a></li>\n" ]
   |> String.concat ""
-  |> sprintf "\n<ol>\n%s<ol>\n"
+  |> sprintf "\n<ol>\n%s</ol>\n"
   |> InlineBlock
+
+// ----------------------------------------------------------------------------
+// Bibtex parser
+// ----------------------------------------------------------------------------
+
+type Entry = 
+  { Type : string
+    Properties : Map<string, string> }
+
+let (|Find|_|) k map = 
+  Map.tryFind k map
+
+let (|Identifier|_|) cs = 
+  let rec loop acc cs = 
+    match cs with 
+    | c::cs when Char.IsLetterOrDigit(c) || c = '-' || c = '_' -> loop (c::acc) cs
+    | cs when not (List.isEmpty acc) -> Some(string (List.rev acc), cs)
+    | _ -> None
+  loop [] cs
+
+let sconc sep s1 s2 =
+  if String.IsNullOrWhiteSpace s1 then s2 
+  elif String.IsNullOrWhiteSpace s2 then s1 
+  else s1 + sep + s2
+
+let optconc sep s1 s2 = 
+  match s2 with None -> s1 | Some s2 -> sconc sep s1 s2
+
+let (+|) = sconc ", "
+let (+|?) = optconc ", "
+let (+-) = sconc " "
+let (+-?) = optconc " "
+
+let rec skipWhite cs = 
+  match cs with 
+  | c::cs when Char.IsWhiteSpace c -> skipWhite cs
+  | _ -> cs
+
+let (|SkipWhite|) cs = skipWhite cs
+
+let rec readBibValue acc cs = 
+  match cs with 
+  | '\\'::'l'::'d'::'o'::'t'::'s'::cs -> readBibValue (List.rev (List.ofSeq "&#8230;") @ acc) cs
+  | '\\'::'#'::cs -> readBibValue ('#' :: acc) cs
+  | '\\'::'$'::cs -> readBibValue ('$' :: acc) cs
+  | '\\'::'&'::cs -> readBibValue ('&' :: acc) cs
+  | '{'::cs | '}'::cs -> readBibValue acc cs
+  | c::cs -> readBibValue (c::acc) cs
+  | [] -> string (List.rev acc)
+
+let rec readDefs acc cs = 
+  match skipWhite cs with 
+  | Identifier(id, SkipWhite('='::SkipWhite(Identifier(value, (','::cs | cs)))))
+  | Identifier(id, SkipWhite('='::SkipWhite(Quoted '"' '"' (value, (','::cs | cs))))) 
+  | Identifier(id, SkipWhite('='::SkipWhite(Quoted '{' '}' (value, (','::cs | cs))))) ->
+      let value = readBibValue [] (List.ofSeq value)
+      readDefs ((id, value)::acc) cs
+  | '}'::cs -> 
+      Map.ofList acc, cs
+  | _ -> failwith $"Expected key/value or end, but found: {string (Seq.truncate 200 cs)}..."
+
+let rec readBib acc cs = 
+  match skipWhite cs with 
+  | '@'::Identifier(typ, '{'::Identifier(key, ','::cs)) ->
+      let props, cs = readDefs [] cs
+      readBib ((key, { Type = typ.ToLower(); Properties = props })::acc) cs
+  | [] ->
+      acc
+  | _ -> failwith $"Expected entry, but found: {string (Seq.truncate 200 cs)}..."
+
+let formatAuthorList (s:string) =
+  [ for a in s.Split(" and ") -> a.Split(",") |> Seq.map (_.Trim()) |> Seq.rev |> String.concat " " ]
+  |> String.concat ", "
+
+let renderReferences refs = 
+  let endw (c:char) (s:string) = 
+    if not(String.IsNullOrWhiteSpace s) && not(s.EndsWith(',')) 
+      && not(s.EndsWith('.')) && not(s.EndsWith('?')) then s + (c.ToString()) else s
+  let refs = refs |> Seq.map (fun (key, ref) ->
+    let title = ref.Properties.["title"]
+    let auth, ed =
+      match ref.Properties with 
+      | Find "author" author & Find "editor" editor -> 
+          formatAuthorList author, formatAuthorList editor + ", editor"
+      | Find "author" author -> formatAuthorList author, ""
+      | Find "editor" editor -> formatAuthorList editor + " (ed.)", ""
+      | _ -> failwith "Missing author and editor"
+    let pub, det = 
+      match ref.Type with 
+      | "book" -> 
+          ref.Properties.["publisher"] +|? ref.Properties.TryFind("address"),
+          "" +-? ref.Properties.TryFind("isbn")
+      | "inproceedings" -> 
+          "In " + ref.Properties.["booktitle"] +-?
+            Option.map (sprintf "(%s)") (ref.Properties.TryFind("series" )) +|?
+            Option.map (sprintf "pages %s") (ref.Properties.TryFind("pages")) +|?
+            ref.Properties.TryFind("address")
+          , "" +-? ref.Properties.TryFind("publisher") +|? 
+            Option.map (sprintf "ISBN %s") (ref.Properties.TryFind("isbn")) +|? 
+            Option.map (fun d -> sprintf "doi <a href='https://dx.doi.org/%s'>%s</a>" d d) 
+              (ref.Properties.TryFind("doi"))
+      | typ -> $"<span style='color:red'>{typ}</span>", ""
+    let year = ref.Properties.["year"]
+    $"<li class='pub'><span class='author'>{endw '.' auth} </span>" + 
+    $"<a name='{key}'><span class='title'>{endw '.' title}</span></a> " + 
+    $"{endw '.' pub} {endw '.' year} {det}</a></li>\n"
+  )
+  let body = String.concat "\n" refs
+  InlineBlock("<h2><a name='references'>References</a></h2>\n<ul>" + body + "</ul>")
 
 // ----------------------------------------------------------------------------
 // Main
@@ -325,9 +447,13 @@ Directory.CreateDirectory(figOutput)
 for f in Directory.GetFiles(figSource) do File.Copy(f, f.Replace(figSource, figOutput))
 
 let latex = Path.Combine(__SOURCE_DIRECTORY__, "..", "chapters", "introduction.tex")
+let bibtex = Path.Combine(__SOURCE_DIRECTORY__, "..", "main.bib")
 let template = Path.Combine(__SOURCE_DIRECTORY__, "template.html")
 let header = Path.Combine(__SOURCE_DIRECTORY__, "header.html")
 let index = Path.Combine(__SOURCE_DIRECTORY__, "output", "index.html")
+
+let bib = File.ReadAllText(bibtex)
+let refs = readBib [] (List.ofSeq bib)
 
 let counter() = 
   let mutable n = 0
@@ -337,11 +463,12 @@ let fmt = { NextFootnote = counter() }
 let chars = File.ReadAllText(latex)
 let tokens = tokenize [] (List.ofSeq chars) |> List.ofSeq
 let doc = parse [] tokens |> List.ofSeq
+
 let groups = 
   let groups = doc |> groupPars |> List.ofSeq
   let toc = doc |> Seq.tail |> generateToc
   let head = InlineBlock(File.ReadAllText(header))
-  [ head; toc ] :: (List.tail groups)
+  [ head; toc ] :: (List.tail groups) @ [[ renderReferences refs ]]
 
 let html = groups |> formatGroups fmt |> String.concat ""
 File.WriteAllText(index, File.ReadAllText(template).Replace("{{content}}", html))
