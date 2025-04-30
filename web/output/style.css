@@ -22,6 +22,7 @@ div.figure { width:calc(100vw - 100px); background:white; margin:50px 0px 50px; 
 sup.noteref { vertical-align: baseline; position: relative; top: -0.5em; }
 sup.noteref a { color:#a0a0a0; font-weight:600; font-size:10pt; text-decoration:none; }
 
+span.note { font-style:normal; }
 span.note, .sidenote { position:absolute; left:1000px; font-weight:600; max-width:400px; font-size:11pt; color:#a0a0a0; line-height:1.4em; }
 span.note a, .sidenote a { color:#808080; font-weight:300; text-decoration:none; }
 span.note a:hover, span.note a:active, .sidenote a:hover, .sidenote p a:active { text-decoration:underline; }
