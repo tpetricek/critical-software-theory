@@ -22,11 +22,11 @@ div.figure { width:calc(100vw - 100px); background:white; margin:50px 0px 50px; 
 sup.noteref { vertical-align: baseline; position: relative; top: -0.5em; }
 sup.noteref a { color:#a0a0a0; font-weight:600; font-size:10pt; text-decoration:none; }
 
-a.note, .sidenote { position:absolute; left:1000px; font-weight:600; max-width:400px; font-size:11pt; color:#a0a0a0; line-height:1.4em; }
-a.note sup { color:#a0a0a0; font-weight:600; font-size:10pt; text-decoration:none; position:absolute; left:-38px; width:30px; display:inline-block; text-align:right; }
+span.note, .sidenote { position:absolute; left:1000px; font-weight:600; max-width:400px; font-size:11pt; color:#a0a0a0; line-height:1.4em; }
+span.note a, .sidenote a { color:#808080; font-weight:300; text-decoration:none; }
+span.note a:hover, span.note a:active, .sidenote a:hover, .sidenote p a:active { text-decoration:underline; }
+span.note sup { color:#a0a0a0; font-weight:600; font-size:10pt; text-decoration:none; position:absolute; left:-38px; width:30px; display:inline-block; text-align:right; }
 .sidenote p { color:#a0a0a0; font-weight:600; font-size:11pt; }
-.sidenote p a { color:#808080; font-weight:300; text-decoration:none; }
-.sidenote p a:hover, .sidenote p a:active { text-decoration:underline; }
 .sidenote i { margin-right:5px; }
 .sidenote img { max-height:none; max-width:80%; margin:0px 12% 0px 8%; filter: grayscale(1); transition: all 0.5s ease; }
 .sidenote img:hover { max-height:none; max-width:80%; margin:0px 12% 0px 8%; filter: grayscale(0); }
@@ -38,15 +38,15 @@ a.note sup { color:#a0a0a0; font-weight:600; font-size:10pt; text-decoration:non
 
 @media only screen and (max-width:1450px) {
   article { width:700px; margin-left:40px; margin-top:40px; }
-  a.note, .sidenote { left:780px; max-width:350px; }
+  span.note, .sidenote { left:780px; max-width:350px; }
 }
 @media only screen and (max-width:1160px) {
   article { width:600px; margin-left:20px; margin-top:20px; }
-  a.note, .sidenote { left:650px; max-width:300px; }
+  span.note, .sidenote { left:650px; max-width:300px; }
 }
 @media only screen and (max-width:970px) {
   article { margin-left:10px; margin-top:10px; margin-right:10px; width:calc(100% - 20px); }
-  a.note, .sidenote { display:none; }
+  span.note, .sidenote { display:none; }
 }
 @media only screen and (max-width:600px) {
   h1 { font-size:34pt; }

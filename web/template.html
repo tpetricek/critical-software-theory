@@ -36,9 +36,9 @@
     /// If footnotes on the margin overlap, move them a bit to make them fit nicely
     function moveNotes() {
       var lasty = 0;
-      for(var n of document.querySelectorAll("a.note")) 
+      for(var n of document.querySelectorAll("span.note")) 
         n.style = "margin-top: 0px";
-      for(var n of document.querySelectorAll("a.note")) {
+      for(var n of document.querySelectorAll("span.note")) {
         var rect = n.getBoundingClientRect();
         var nowy = rect.y + window.scrollY;
         if (nowy < lasty) n.style = "margin-top:" + Math.round(lasty - nowy) + "px";
