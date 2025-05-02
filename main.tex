@@ -71,8 +71,16 @@
 }
 \lstdefinelanguage{ocaml}{
   basicstyle=\ttfamily\footnotesize,
-  morecomment=[s]{/*}{*/},
   morecomment=[s]{(*}{*)},
+  identifierstyle=\color{black},
+  keywords=[1]{module,type,sig,int,val,let,end},
+  keywordstyle=[1]\color{DarkBlue},
+  keywords=[2]{MySig,MyModule},
+  keywordstyle=[2]\color{violet}
+}
+\lstdefinelanguage{reasonml}{
+  basicstyle=\ttfamily\footnotesize,
+  morecomment=[s]{/*}{*/},
   identifierstyle=\color{black},
   keywords=[1]{module,type,sig,int,val,let,end},
   keywordstyle=[1]\color{DarkBlue},
@@ -109,6 +117,7 @@
     HTMLElement,MSHTMLWebViewElement},
   keywordstyle=[2]\color{violet}
 }
+\newcommand{\figref}[1]{Figure~\ref{#1}}
 \lstdefinelanguage{csxml}{
   basicstyle=\ttfamily\footnotesize,
   morestring=[b]",

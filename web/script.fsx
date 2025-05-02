@@ -18,7 +18,7 @@ type Span =
   | Endnote of Span list
   | Span of string
   | Teletype of string
-  | Reference of string
+  | Figref of string
   | Cite of parenthesize:bool * page:string option * string
 
 type Paragraph = 
@@ -37,6 +37,8 @@ type Paragraph =
 // ----------------------------------------------------------------------------
 
 let string cs = System.String(Array.ofSeq cs)
+
+let (|Reverse|) els = List.rev els
 
 let (|Quoted|_|) qo qc cs =
   let rec loop acc qocount cs =
@@ -86,6 +88,11 @@ let rec tokenize acc cs = seq {
   | '~'::cs ->
       yield! tokenize (List.rev(List.ofSeq "&nbsp;") @ acc) cs
 
+  | '\\'::OneOrMore letterOrAst (cmd, Quoted '{' '}' (args, Quoted '[' ']' (opts1, Quoted '{' '}' (opts2, cs)))) ->
+      yield! currentLiteral ()
+      yield Command(cmd, Some (opts1+","+opts2), Some args)
+      yield! tokenize [] cs
+  | '\\'::OneOrMore letterOrAst (cmd, Quoted '{' '}' (opts, Quoted '{' '}' (args, cs))) 
   | '\\'::OneOrMore letterOrAst (cmd, Quoted '{' '}' (args, Quoted '[' ']' (opts, cs))) 
   | '\\'::OneOrMore letterOrAst (cmd, Quoted '[' ']' (opts, Quoted '{' '}' (args, cs))) ->
       yield! currentLiteral ()
@@ -193,6 +200,7 @@ let rec parse acc ts = seq {
   | Command("caption", _, Some cap)::Literal(WhiteSpace _)::Command("label", _, Some lbl)::ts 
   | Command("caption", _, Some cap)::Command("label", _, Some lbl)::ts ->
       yield! currentParagraph()
+      let lbl = lbl.Replace(":","_")
       yield Caption(Some lbl, literalToHtml cap)
       yield! parse [] ts
   | Command("caption", _, Some cap)::ts ->
@@ -201,8 +209,9 @@ let rec parse acc ts = seq {
       yield! parse [] ts
 
   // Span-level entities
-  | Command("ref", None, Some ref)::ts ->
-      yield! parse (Reference ref::acc) ts  
+  | Command("figref", None, Some ref)::ts ->
+      let ref = ref.Replace(":","_")
+      yield! parse (Figref ref::acc) ts  
   | Command("citet", pg, Some cite)::ts ->
       yield! parse (Cite(false, pg, cite)::acc) ts  
   | Command("citep", pg, Some cite)::ts ->
@@ -242,13 +251,23 @@ let rec parse acc ts = seq {
   | [] -> 
       yield! currentParagraph() }
 
+let makeFigureMap pars =
+  let rec loop map = function
+    | Caption(Some lbl, _) -> Map.add lbl (Map.count map + 1) map
+    | Paragraph _ | Heading _ | Image _ | Listing _ | InlineBlock _ | Caption(None, _) -> map
+    | Quote pars | Figure pars -> List.fold loop map pars
+  List.fold loop Map.empty pars
+
 // ----------------------------------------------------------------------------
 // HTML formatting
 // ----------------------------------------------------------------------------
 
 type FormattingContext = 
   { NextFootnote : unit -> int 
-    References : System.Collections.Generic.IDictionary<string, BibtexEntry> }
+    LanguageMap : string -> string
+    References : System.Collections.Generic.IDictionary<string, BibtexEntry> 
+    FigureMap : Map<string, int>
+    AllEndNotes : ResizeArray<string> }
 
 let getAuthorAbbr (ref:BibtexEntry) =
   let s = 
@@ -280,9 +299,13 @@ let rec formatSpans fmt spans = seq {
     | Endnote(s) -> 
         let note = fmt.NextFootnote()
         let s = String.concat "" (formatSpans fmt s)
+        let ftnt = $"<span class='endnote' id='endnote_{note}'><sup>{note}</sup> {s}</span>"
+        fmt.AllEndNotes.Add(ftnt)
         $"<sup class='noteref'><a href='#note_{note}'>{note}</a></sup>" + 
         $"<span class='note' id='note_{note}'><sup>{note}</sup> {s}</span>"
-    | Reference(ref) -> "[#]"
+
+    | Figref(ref) -> 
+        $"<a href='#{ref}'>Figure {fmt.FigureMap.[ref]}</a>"
     | Span(s) -> s }
 
 let rec formatPars fmt pars = seq {
@@ -294,14 +317,14 @@ let rec formatPars fmt pars = seq {
         let hname = h.ToLower().Replace(" ", "_")
         yield $"<h{n} id='{hname}'>{h}</h{n}>\n"
     | Caption(lbl, cap) ->  
-        yield $"<p><strong>{cap}</strong></p>\n"
+        yield $"<p class='caption'><strong>Figure {fmt.FigureMap.[lbl.Value]}.</strong> {cap}</p>\n"
     | Image(src) ->
         yield $"<img src=\"{src}\">\n"
     | Paragraph(spans) ->   
         yield "<p>"
         yield! formatSpans fmt spans
         yield "</p>\n\n"
-    | Figure(pars) ->
+    | Figure(pars) ->        
         yield "<div class=\"figure\">\n"
         yield! formatPars fmt pars    
         yield "</div>\n"
@@ -311,16 +334,56 @@ let rec formatPars fmt pars = seq {
         yield "</blockquote>\n\n" 
     | Listing(lang, body) ->
         match lang with 
-        | Some lang -> yield $"\n<pre lang=\{lang}\">\n" 
-        | None -> yield "\n<pre>\n"
-        yield System.Web.HttpUtility.HtmlEncode(body)
-        yield "</pre>\n\n" }
+        | Some lang -> yield $"\n<pre><code class=\"language-{fmt.LanguageMap lang}\">" 
+        | None -> yield "\n<pre><code class='language-plaintext'>"
+        yield System.Web.HttpUtility.HtmlEncode(body.Trim())
+        yield "</code></pre>\n\n" }
+
+let (|ImagesWithCaption|_|) pars = 
+  let rec loop acc pars = 
+    match pars with 
+    | [ Caption(Some lbl,c) ] -> Some(List.rev acc, lbl, c)
+    | (Image i) :: pars -> loop (i::acc) pars
+    | _ -> None
+  loop [] pars
 
 let formatGroups fmt groups = seq {
   for pars in groups do
-    yield "\n<section>\n"
-    yield! formatPars fmt pars
-    yield "</section>\n\n"
+    match pars with 
+    | [ Figure(ImagesWithCaption(imgs, lbl, cap)) ] when List.length imgs >= 3 ->
+        yield $"\n<section class='figure figview' id='{lbl}'>\n"
+        yield $"<div class='figbody' id='{lbl}scroll'>\n"
+        for img in imgs do
+          yield $"<figure><img src='{img}'></figure>\n"
+        yield "</div>\n"
+        yield "</section>\n"
+
+        yield $"\n<section class='figure figpreview'>\n"
+        yield $"<div class='move moveleft' onmouseout='endScroll()' onmousedown='startScroll(\"{lbl}\",-300,true)' onmouseover='startScroll(\"{lbl}\",-100)'><i class='fa-solid fa-angle-left'></i></div>\n"
+        yield $"<div class='move moveright' onmouseout='endScroll()' onmousedown='startScroll(\"{lbl}\",300,true)' onmouseover='startScroll(\"{lbl}\",100)'><i class='fa-solid fa-angle-right'></i></div>\n"
+        yield $"<div class='figlist' id='{lbl}previews'>\n"
+        for i, img in Seq.indexed imgs do
+          let cls = if i = 0 then " class='selected'" else ""
+          yield $"<a{cls} href='javascript:;' onclick='switchFigure(\"{lbl}\", {i})'><img src='{img}'></a>\n"
+        yield "</div>\n"
+        yield! formatPars fmt [Caption(Some lbl, cap)]
+        yield "</section>\n\n"
+
+    | _ ->
+        let cls = 
+          match pars with 
+          | [Figure[Listing _; Listing _; Caption _]] -> $" class='figure listings2'"
+          | [Figure(ImagesWithCaption(imgs, _, _))] -> $" class='figure images{imgs.Length}'"
+          | [Figure _] -> " class='figure'" 
+          | [InlineBlock(b)] when b.StartsWith("<h2 id='endnotes'>") -> " class='endnotes'"
+          | _ -> ""
+        let id = 
+          match pars with 
+          | [Figure(Reverse(Caption(Some lbl, _)::_))] -> $" id='{lbl}'"
+          | _ -> ""
+        yield $"\n<section{cls}{id}>\n"
+        yield! formatPars fmt pars
+        yield "</section>\n\n"
   }
 
 let groupPars pars = 
@@ -495,6 +558,10 @@ let renderReferences refs =
   let body = String.concat "\n" refs
   InlineBlock("<h2 id='references'>References</h2>\n<ul>" + body + "</ul>")
 
+let renderEndnotes fmt = 
+  let body = fmt.AllEndNotes |> Seq.map (sprintf "<li>%s</li>\n") |> String.concat ""
+  InlineBlock("<h2 id='endnotes'>Notes</h2>\n<ul>" + body + "</ul>")
+
 // ----------------------------------------------------------------------------
 // Main
 // ----------------------------------------------------------------------------
@@ -520,17 +587,27 @@ let counter() =
   let mutable n = 0
   fun () -> n <- n + 1; n
 
-let fmt = { NextFootnote = counter(); References = dict refs }
+let langmap = function
+  | "csxml" -> "xml"
+  | l -> l
+
 let chars = File.ReadAllText(latex)
 let tokens = tokenize [] (List.ofSeq chars) |> List.ofSeq
 let doc = parse [] tokens |> List.ofSeq
+let fmt = 
+  { NextFootnote = counter(); References = dict refs; AllEndNotes = ResizeArray<_>()
+    LanguageMap = langmap; FigureMap = makeFigureMap doc }
 
 let groups = 
   let groups = doc |> groupPars |> List.ofSeq
   let toc = doc |> Seq.tail |> generateToc
   let head = InlineBlock(File.ReadAllText(header))
-  [ head; toc ] :: (List.tail groups) @ [[ renderReferences refs ]]
+  [ head; toc ] :: (List.tail groups) 
+let groupsHtml = formatGroups fmt groups |> String.concat ""
 
-let html = groups |> formatGroups fmt |> String.concat ""
+let extras = [ [ renderEndnotes fmt ]; [ renderReferences refs ] ]
+let extrasHtml = formatGroups fmt extras |> String.concat ""
+
+let html = groupsHtml + extrasHtml
 File.WriteAllText(index, File.ReadAllText(template).Replace("{{content}}", html))
 

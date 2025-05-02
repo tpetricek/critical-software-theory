@@ -29,12 +29,24 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Manrope:wght@200..800&family=Roboto+Mono:wght@100..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/ocaml.min.js" integrity="sha512-x+P0DBw3wkY5qDtODK0RT0dDw7hcRV1BgYJAdM5RlTvPsEcIoLFCd4bF2zETdwDkZlkXtR0XdvNyk0TfSlZgGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/reasonml.min.js" integrity="sha512-lyK79qXPy7ZrtRkTJGXu8WyCfTFhLgRgVRlgb9+TmWW+M7kYvs0gYAKUY4BkwvBPBIhqc1jNJ+iJoe4heIWZYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/haskell.min.js" integrity="sha512-wV1s4ylNcflirsC0Ug9dDahOxjj/JSQheHv0loB9Q3bv7G0TYLduOWWmhz2MjMKRO6+LS8AgeuhBB8Gny4pdFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/google-light.min.css" integrity="sha512-nzMhN+KUSkxA5L9h2BKKpaFw19+a1JufkYL6GEwKPxrsf5YFO8TBbI1Qppd72zZbHAA6RG2htrd2q7sHvcb4Ew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <link href="style.css" rel="stylesheet">
   <script type="text/javascript">
-    /// If footnotes on the margin overlap, move them a bit to make them fit nicely
     function moveNotes() {
+      // Change hrefs of notes in the doc to point to sidenote/endnote depending on width
+      var ref = window.innerWidth < 970 ? "endnote" : "note";
+      for(var a of document.querySelectorAll(".noteref a"))
+      a.href = "#" + ref + "_" + a.innerText;
+    
+      // If footnotes on the margin overlap, move them a bit to make them fit nicely
       var lasty = 0;
       for(var n of document.querySelectorAll("span.note")) 
         n.style = "margin-top: 0px";
@@ -46,8 +58,27 @@
         lasty = rect.y + window.scrollY + rect.height + 20;
       }
     }
-    window.onload = moveNotes;
-    window.onresize = moveNotes;
+
+    function switchFigure(prefix, index) {
+      document.getElementById(prefix + 'scroll').style.marginLeft="-" + (index*100) + "%";
+      var links = document.querySelectorAll("#" + prefix + "previews a");
+      for(var i = 0; i < links.length; i++) links[i].className = i == index ? "selected" : "";
+    }
+
+    function startScroll(prefix,offs,once) {
+      let f = once ? window.setTimeout : window.setInterval;
+      window.clearInterval(window.figIntervalId);
+      window.figIntervalId = f(() => {
+        document.getElementById(prefix+"previews").scrollBy({left:offs, top:0, behavior:'smooth'});
+      }, 100);    
+    }
+    function endScroll() {
+      window.clearInterval(window.figIntervalId);
+    }
+
+    window.addEventListener('load', moveNotes);
+    window.addEventListener('resize', moveNotes);
+    window.addEventListener('load', hljs.highlightAll);
   </script>
 </head>
 <body>
