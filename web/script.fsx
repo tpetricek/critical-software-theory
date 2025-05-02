@@ -143,6 +143,7 @@ let (|WhiteSpace|_|) s =
 
 let literalToHtml (str:string) = 
   str.Replace("---", "&#8212;").Replace("``", "&#8220;").Replace("''", "&#8221;")
+    .Replace("\\#","#").Replace("~", "&nbsp;")
 
 let parseOptions (opts:string option) = 
   match opts with 
