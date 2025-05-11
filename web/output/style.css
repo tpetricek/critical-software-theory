@@ -5,12 +5,15 @@ h1 em { color:rgb(198, 7, 7); font-style: normal; white-space:nowrap; }
 h2 { font:400 30pt 'EB Garamond', serif; color:rgb(198, 7, 7); margin:10px 0px 20px 0px; }
 p { color:#404040; font:400 13pt 'Manrope', sans-serif; margin:10px 0px; line-height:1.6em; }
 h3 { color:#404040; font:700 14pt 'Manrope', sans-serif; margin:30px 0px 0px 0px;  }
-p.lead { font-size:14pt; margin:0px 0px 30px 0px; font-weight:200; }
+p.lead { font-size:14pt; margin:0px 0px 10px 0px; font-weight:200; }
+p.date { margin-bottom:30px; }
 pre code { font:400 11pt 'Roboto Mono',monospace; line-height:1.6em; padding:0px !important; }
 li { color:#404040; font:400 13pt 'Manrope', sans-serif; margin:2px 0px; line-height:1.6em; }
 ol { margin:10px 0px 10px 25px;}
 a, a:visited { color:rgb(198, 7, 7); text-decoration:none; }
 a:active, a:hover { text-decoration:underline; }
+ul.lead { margin:15px 0px 15px 25px; }
+ul.lead li { font-size:14pt; margin:0px 0px 0px 0px; font-weight:200; }
 
 article { width:900px; margin-left:50px; margin-top:50px; }
 section { background:white; margin:0px 0px 50px 0px; padding:50px; }
